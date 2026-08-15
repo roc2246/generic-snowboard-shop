@@ -3,6 +3,9 @@
 
 {{ 'component-slider.css' | asset_url | stylesheet_tag }}
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
+{%- if section.settings.show_rating -%}
+  {{ 'component-rating.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
 {%- if section.settings.enable_quick_add -%}
   {{ 'quick-add.css' | asset_url | stylesheet_tag }}
   <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>

@@ -41,6 +41,11 @@
     assign stacked_sizes = '(min-width: 750px) 50vw, 100vw'
     assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
   endif
+
+  assign image_loading = 'lazy'
+  if request.page_type == 'index' and section.index == 1
+    assign image_loading = 'eager'
+  endif
 -%}
 
 <div
@@ -66,7 +71,7 @@
         section.settings.image
         | image_url: width: 3840
         | image_tag:
-          loading: 'lazy',
+          loading: image_loading,
           width: section.settings.image.width,
           height: image_height,
           class: image_class,
@@ -98,7 +103,7 @@
         section.settings.image_2
         | image_url: width: 3840
         | image_tag:
-          loading: 'lazy',
+          loading: image_loading,
           width: section.settings.image_2.width,
           height: image_height_2,
           class: image_class_2,
