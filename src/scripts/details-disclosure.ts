@@ -6,7 +6,9 @@ class DetailsDisclosure extends HTMLElement {
   constructor() {
     super();
     this.mainDetailsToggle = this.querySelector('details');
-    this.content = this.mainDetailsToggle.querySelector('summary').nextElementSibling;
+    if (!this.mainDetailsToggle) return;
+    const summary = this.mainDetailsToggle.querySelector('summary');
+    this.content = summary?.nextElementSibling ?? null;
 
     this.mainDetailsToggle.addEventListener('focusout', this.onFocusOut.bind(this));
     this.mainDetailsToggle.addEventListener('toggle', this.onToggle.bind(this));
@@ -19,6 +21,7 @@ class DetailsDisclosure extends HTMLElement {
   }
 
   onToggle() {
+    if (!this.content) return;
     if (!this.animations) this.animations = this.content.getAnimations();
 
     if (this.mainDetailsToggle.hasAttribute('open')) {
@@ -29,8 +32,9 @@ class DetailsDisclosure extends HTMLElement {
   }
 
   close() {
+    if (!this.mainDetailsToggle) return;
     this.mainDetailsToggle.removeAttribute('open');
-    this.mainDetailsToggle.querySelector('summary').setAttribute('aria-expanded', 'false');
+    this.mainDetailsToggle.querySelector('summary')?.setAttribute('aria-expanded', 'false');
   }
 }
 

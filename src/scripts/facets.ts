@@ -39,7 +39,10 @@ class FacetFiltersForm extends HTMLElement {
     const sections = FacetFiltersForm.getSections();
     const countContainer = document.getElementById('ProductCount');
     const countContainerDesktop = document.getElementById('ProductCountDesktop');
-    document.getElementById('ProductGridContainer').querySelector('.collection').classList.add('loading');
+    const productGridContainer = document.getElementById('ProductGridContainer');
+    const collection = productGridContainer?.querySelector('.collection');
+    if (!collection) return;
+    collection.classList.add('loading');
     if (countContainer){
       countContainer.classList.add('loading');
     }
@@ -79,12 +82,17 @@ class FacetFiltersForm extends HTMLElement {
   }
 
   static renderProductGridContainer(html) {
-    document.getElementById('ProductGridContainer').innerHTML = new DOMParser().parseFromString(html, 'text/html').getElementById('ProductGridContainer').innerHTML;
+    const target = document.getElementById('ProductGridContainer');
+    const source = new DOMParser().parseFromString(html, 'text/html').getElementById('ProductGridContainer');
+    if (!target || !source) return;
+    target.innerHTML = source.innerHTML;
   }
 
   static renderProductCount(html) {
-    const count = new DOMParser().parseFromString(html, 'text/html').getElementById('ProductCount').innerHTML
+    const source = new DOMParser().parseFromString(html, 'text/html').getElementById('ProductCount');
     const container = document.getElementById('ProductCount');
+    if (!source || !container) return;
+    const count = source.innerHTML;
     const containerDesktop = document.getElementById('ProductCountDesktop');
     container.innerHTML = count;
     container.classList.remove('loading');

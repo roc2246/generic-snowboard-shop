@@ -6,6 +6,8 @@
     "build:styles": "node scripts/build-styles.mjs",
     "build:scripts": "tsc -p tsconfig.build.json",
     "typecheck": "tsc -p tsconfig.json",
+    "typecheck:strict": "tsc -p tsconfig.strict.json",
+    "check:types": "node scripts/validate-types.mjs && npm run typecheck && npm run typecheck:strict",
     "watch": "concurrently -k \"npm:watch:styles\" \"npm:watch:scripts\"",
     "watch:styles": "node scripts/build-styles.mjs --watch",
     "watch:scripts": "tsc -p tsconfig.build.json --watch --preserveWatchOutput"

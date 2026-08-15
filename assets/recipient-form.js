@@ -30,7 +30,7 @@ if (!customElements.get('recipient-form')) {
                     this.currentProductVariantId = event.data.variant.id.toString();
                 }
             });
-            this.cartUpdateUnsubscriber = subscribe(PUB_SUB_EVENTS.cartError, (event) => {
+            this.cartErrorUnsubscriber = subscribe(PUB_SUB_EVENTS.cartError, (event) => {
                 if (event.source === 'product-form' && event.productVariantId.toString() === this.currentProductVariantId) {
                     this.displayErrorMessage(event.message, event.errors);
                 }

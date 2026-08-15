@@ -13,10 +13,13 @@ if (!customElements.get('product-form')) {
       super();
 
       this.form = this.querySelector('form');
-      (this.form.querySelector('[name=id]') as HTMLInputElement).disabled = false;
+      if (!this.form) return;
+      const variantInput = this.form.querySelector<HTMLInputElement>('[name=id]');
+      if (variantInput) variantInput.disabled = false;
       this.form.addEventListener('submit', this.onSubmitHandler.bind(this));
       this.cart = document.querySelector('cart-notification') || document.querySelector('cart-drawer');
       this.submitButton = this.querySelector('[type="submit"]');
+      if (!this.submitButton) return;
       if (document.querySelector('cart-drawer')) this.submitButton.setAttribute('aria-haspopup', 'dialog');
 
       this.hideErrors = this.dataset.hideErrors === 'true';

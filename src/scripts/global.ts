@@ -26,6 +26,7 @@ const trapFocusHandlers: { focusin?: EventListener; focusout?: EventListener; ke
 
 function trapFocus(container, elementToFocus = container) {
   var elements = getFocusableElements(container);
+  if (elements.length === 0) return;
   var first = elements[0];
   var last = elements[elements.length - 1];
 
