@@ -1,9 +1,11 @@
+@use 'abstracts' as a;
+
 .blog-placeholder {
   margin: 0 1.5rem;
-  background: rgb(var(--color-background));
+  background: a.theme-color(background);
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   .blog-placeholder {
     text-align: center;
     width: 50%;
@@ -13,7 +15,7 @@
 
 .blog-placeholder__content {
   padding: 3rem;
-  background: rgba(var(--color-foreground), 0.04);
+  background: a.theme-color(foreground, 0.04);
 }
 
 .blog-placeholder .placeholder {
@@ -26,10 +28,10 @@
 
 .blog-placeholder .rte-width {
   margin-top: 1.2rem;
-  color: rgba(var(--color-foreground), 0.75);
+  color: a.theme-color(foreground, 0.75);
 }
 
-@media screen and (min-width: 990px) {
+@include a.media-up(desktop) {
   .grid--1-col-desktop .article-card .card__content {
     text-align: center;
   }
@@ -43,7 +45,7 @@
   margin-bottom: 1rem;
 }
 
-@media screen and (min-width: 990px) {
+@include a.media-up(desktop) {
   .blog__posts.articles-wrapper {
     margin-bottom: 0;
   }
@@ -53,14 +55,14 @@
   scroll-snap-align: start;
 }
 
-@media screen and (max-width: 749px) {
+@include a.media-down(tablet) {
   .blog__post.article {
     width: calc(100% - 3rem - var(--grid-mobile-horizontal-spacing));
   }
 }
 
 .background-secondary .blog-placeholder__content {
-  background-color: rgb(var(--color-background));
+  background-color: a.theme-color(background);
 }
 
 .blog__posts .card-wrapper {
@@ -71,7 +73,7 @@
   margin-top: 3rem;
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   .blog__button {
     margin-top: 5rem;
   }
@@ -79,7 +81,7 @@
 
 /* check for flexbox gap in older Safari versions */
 @supports not (inset: 10px) {
-  @media screen and (min-width: 750px) {
+  @include a.media-up(tablet) {
     .blog__posts .article + .article {
       margin-left: var(--grid-desktop-horizontal-spacing);
     }

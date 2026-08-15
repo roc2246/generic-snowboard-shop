@@ -1,2 +1,20 @@
-// Add project-wide Sass variables here when a value should be resolved at build time.
-// Keep merchant-configurable design tokens as CSS custom properties in the theme instead.
+@use 'sass:map';
+
+// Build-time tokens only. Merchant-configurable theme values remain CSS custom properties.
+$breakpoints: (
+  tablet: 750px,
+  desktop: 990px,
+  wide: 1400px,
+);
+
+$transition-duration-fast: 100ms;
+$transition-duration-base: 200ms;
+$transition-duration-slow: 300ms;
+$transition-ease-standard: ease;
+
+$z-layers: (
+  base: 1,
+  raised: 2,
+  overlay: 3,
+  modal: 4,
+);

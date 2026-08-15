@@ -1,1 +1,74 @@
-// Add reusable Sass mixins here as custom theme patterns emerge.
+@use 'sass:math';
+@use 'functions' as f;
+
+/// Mobile-first min-width media query.
+@mixin media-up($from) {
+  @media screen and (min-width: #{f.breakpoint($from)}) {
+    @content;
+  }
+}
+
+/// Max-width query that ends one CSS pixel before the supplied breakpoint.
+@mixin media-down($until) {
+  $limit: f.breakpoint($until) - 1px;
+
+  @media screen and (max-width: #{$limit}) {
+    @content;
+  }
+}
+
+/// Range query: inclusive lower bound, one pixel below upper breakpoint.
+@mixin media-between($from, $until) {
+  $min: f.breakpoint($from);
+  $max: f.breakpoint($until) - 1px;
+
+  @media screen and (min-width: #{$min}) and (max-width: #{$max}) {
+    @content;
+  }
+}
+
+/// Common centering pattern for controls, icons, and overlays.
+@mixin flex-center($inline: false) {
+  @if $inline {
+    display: inline-flex;
+  } @else {
+    display: flex;
+  }
+  align-items: center;
+  justify-content: center;
+}
+
+/// Stretch an absolutely positioned element over its containing block.
+@mixin absolute-fill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/// Accessible visually-hidden content that remains available to assistive technology.
+@mixin visually-hidden {
+  position: absolute !important;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0 0 0 0);
+  word-wrap: normal !important;
+}
+
+/// Single-line truncation with an ellipsis.
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/// Respect reduced-motion preferences for optional animations/transitions.
+@mixin motion-safe {
+  @media (prefers-reduced-motion: no-preference) {
+    @content;
+  }
+}

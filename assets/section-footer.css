@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .footer {
   border-top: 0.1rem solid rgba(var(--color-foreground), 0.08);
 }
@@ -15,31 +16,26 @@
   .footer .grid {
     display: block;
   }
-
   .footer-block.grid__item {
     padding: 0;
     margin: 4rem 0;
     width: 100%;
   }
-
   .footer-block.grid__item:first-child {
     margin-top: 0;
   }
-
   .footer__content-top {
     padding-bottom: 3rem;
     padding-left: calc(4rem / var(--font-body-scale));
     padding-right: calc(4rem / var(--font-body-scale));
   }
 }
-
 @media screen and (min-width: 750px) {
   .footer__content-top .grid {
     row-gap: 6rem;
     margin-bottom: 0;
   }
 }
-
 .footer__content-bottom {
   border-top: solid 0.1rem rgba(var(--color-foreground), 0.08);
   padding-top: 3rem;
@@ -62,14 +58,12 @@
     padding-right: 0;
     row-gap: 1.5rem;
   }
-
   .footer__content-bottom-wrapper {
     flex-wrap: wrap;
     row-gap: 1.5rem;
     justify-content: center;
   }
 }
-
 .footer__localization:empty + .footer__column--info {
   align-items: center;
 }
@@ -79,7 +73,6 @@
     padding-top: 1.5rem;
   }
 }
-
 .footer__column {
   width: 100%;
   align-items: flex-end;
@@ -101,7 +94,6 @@
     align-items: flex-end;
   }
 }
-
 .footer-block:only-child:last-child {
   text-align: center;
   max-width: 76rem;
@@ -114,7 +106,6 @@
     margin-top: 0;
   }
 }
-
 .footer-block:empty {
   display: none;
 }
@@ -135,14 +126,12 @@
     text-align: left;
   }
 }
-
 @media screen and (min-width: 750px) {
   .footer-block--newsletter {
     flex-wrap: nowrap;
     justify-content: center;
   }
 }
-
 .footer-block__heading {
   margin-bottom: 2rem;
   margin-top: 0;
@@ -154,7 +143,6 @@
     font-size: calc(var(--font-heading-scale) * 1.8rem);
   }
 }
-
 .footer__list-social:empty,
 .footer-block--newsletter:empty {
   display: none;
@@ -184,17 +172,13 @@
     text-align: left;
     margin-right: auto;
   }
-
   .footer-block__newsletter:not(:only-child) .footer__newsletter {
     justify-content: flex-start;
     margin: 0;
   }
-
-  .footer-block__newsletter:not(:only-child)
-    .newsletter-form__message--success {
+  .footer-block__newsletter:not(:only-child) .newsletter-form__message--success {
     left: auto;
   }
-
   .footer__follow-on-shop {
     margin-bottom: 0.4rem;
   }
@@ -204,7 +188,6 @@
     margin-right: auto;
     text-align: left;
   }
-
   /*
     All three components are present, email, Follow on Shop, and social icons.
     Moves the FoS button next to the social icons so they appear grouped together
@@ -214,7 +197,6 @@
     text-align: right;
   }
 }
-
 @media screen and (max-width: 749px) {
   /*
     On a small screen we want all the items to be centered
@@ -227,26 +209,21 @@
     align-items: center;
     gap: 3rem;
   }
-
   .footer__list-social.list-social,
   .footer__follow-on-shop,
   .footer-block__newsletter {
     display: flex;
     justify-content: center;
   }
-
   .footer-block__newsletter {
     flex-direction: column;
   }
-
 }
-
 @media screen and (min-width: 750px) {
   .footer-block__newsletter + .footer__list-social {
     margin-top: 0;
   }
 }
-
 .footer__localization {
   display: flex;
   flex-direction: row;
@@ -270,24 +247,20 @@
     padding: 0.4rem 0;
     justify-content: flex-start;
   }
-
   .footer__localization h2 {
     margin: 1rem 0 0;
   }
 }
-
 @media screen and (max-width: 989px) {
   .footer__localization noscript {
     width: 100%;
   }
 }
-
 @media screen and (min-width: 750px) {
   .footer__payment {
     margin-top: 1.5rem;
   }
 }
-
 .footer__content-bottom-wrapper--center {
   justify-content: center;
 }
@@ -302,7 +275,6 @@
     text-align: right;
   }
 }
-
 @keyframes appear-down {
   0% {
     opacity: 0;
@@ -313,7 +285,6 @@
     margin-top: 0;
   }
 }
-
 .footer-block__details-content {
   margin-bottom: 4rem;
 }
@@ -322,21 +293,17 @@
   .footer-block__details-content {
     margin-bottom: 0;
   }
-
   .footer-block__details-content > p,
   .footer-block__details-content > li {
     padding: 0;
   }
-
   .footer-block:only-child li {
     display: inline;
   }
-
   .footer-block__details-content > li:not(:last-child) {
     margin-right: 1.5rem;
   }
 }
-
 .footer-block__details-content .list-menu__item--link,
 .copyright__content a {
   color: rgba(var(--color-foreground), 0.75);
@@ -354,30 +321,25 @@
     text-decoration: underline;
     text-underline-offset: 0.3rem;
   }
-
   .footer-block__details-content .list-menu__item--active:hover {
     text-decoration-thickness: 0.2rem;
   }
 }
-
 @media screen and (max-width: 989px) {
   .footer-block__details-content .list-menu__item--link {
     padding-top: 1rem;
     padding-bottom: 1rem;
   }
 }
-
 @media screen and (min-width: 750px) {
   .footer-block__details-content .list-menu__item--link {
     display: inline-block;
     font-size: 1.4rem;
   }
-
   .footer-block__details-content > :first-child .list-menu__item--link {
     padding-top: 0;
   }
 }
-
 .footer-block-image {
   display: flex;
 }
@@ -402,13 +364,9 @@
     justify-content: center;
   }
 }
-
 .footer-block__image-wrapper {
-  box-shadow: var(--media-shadow-horizontal-offset)
-    var(--media-shadow-vertical-offset)
-    var(--media-shadow-blur-radius)
-    rgba(var(--color-shadow), var(--media-shadow-opacity));
-  margin-bottom: max(calc(2rem + var(--media-shadow-vertical-offset) * var(--media-shadow-visible)), 2rem);
+  box-shadow: var(--media-shadow-horizontal-offset) var(--media-shadow-vertical-offset) var(--media-shadow-blur-radius) rgba(var(--color-shadow), var(--media-shadow-opacity));
+  margin-bottom: max(2rem + var(--media-shadow-vertical-offset) * var(--media-shadow-visible), 2rem);
   overflow: hidden !important;
 }
 
@@ -470,7 +428,7 @@
 }
 
 .policies li::before {
-  content: '\00B7';
+  content: "·";
   padding: 0 0.8rem;
 }
 
@@ -489,13 +447,11 @@
     opacity: 0;
     transform: translateY(0);
   }
-
   100% {
     opacity: 1;
     transform: translateY(-1rem);
   }
 }
-
 /* check for flexbox gap in older Safari versions */
 @supports not (inset: 10px) {
   @media screen and (max-width: 749px) {
@@ -503,12 +459,10 @@
       margin-left: 0;
     }
   }
-
   @media screen and (min-width: 750px) {
     .footer__content-top .grid {
       margin-left: -3rem;
     }
-
     .footer__content-top .grid__item {
       padding-left: 3rem;
     }

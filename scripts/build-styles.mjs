@@ -8,6 +8,9 @@ const root = process.cwd();
 const stylesRoot = path.join(root, 'src', 'styles');
 const assetsRoot = path.join(root, 'assets');
 const sourceGroups = ['base', 'components', 'layout', 'sections', 'pages', 'vendors'];
+const isWatch = process.argv.includes('--watch');
+const isCheck = process.argv.includes('--check');
+const style = process.argv.includes('--compressed') ? 'compressed' : 'expanded';
 
 async function getScssFiles(directory) {
   const entries = await fs.readdir(directory, { withFileTypes: true }).catch(() => []);
@@ -23,7 +26,7 @@ async function getScssFiles(directory) {
 }
 
 async function buildStyles() {
-  await fs.mkdir(assetsRoot, { recursive: true });
+  if (!isCheck) await fs.mkdir(assetsRoot, { recursive: true });
   const sources = [];
 
   for (const group of sourceGroups) {
@@ -42,20 +45,25 @@ async function buildStyles() {
     outputNames.add(outputName);
 
     const result = sass.compile(source, {
-      style: 'expanded',
+      style,
       sourceMap: false,
       loadPaths: [stylesRoot],
+      quietDeps: true,
     });
 
-    await fs.writeFile(path.join(assetsRoot, outputName), result.css);
+    if (!isCheck) {
+      const css = result.css.endsWith('\n') ? result.css : `${result.css}\n`;
+      await fs.writeFile(path.join(assetsRoot, outputName), css);
+    }
   }
 
-  console.log(`Built ${sources.length} SCSS sources into assets/.`);
+  const action = isCheck ? 'Validated' : 'Built';
+  console.log(`${action} ${sources.length} SCSS sources${isCheck ? '.' : ` into assets/ (${style}).`}`);
 }
 
 await buildStyles();
 
-if (process.argv.includes('--watch')) {
+if (isWatch) {
   console.log('Watching src/styles/ for SCSS changes...');
   let timer;
   watch(stylesRoot, { recursive: true }, (_eventType, filename) => {

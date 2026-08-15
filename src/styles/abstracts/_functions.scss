@@ -1,1 +1,35 @@
-// Add reusable Sass functions here when build-time calculations are genuinely useful.
+@use 'sass:map';
+@use 'sass:meta';
+@use 'variables' as v;
+
+/// Resolve a named breakpoint or pass through a literal CSS length.
+/// @example breakpoint(tablet) => 750px
+/// @example breakpoint(1200px) => 1200px
+@function breakpoint($value) {
+  @if meta.type-of($value) == 'string' and map.has-key(v.$breakpoints, $value) {
+    @return map.get(v.$breakpoints, $value);
+  }
+
+  @return $value;
+}
+
+/// Return a Dawn/Shopify RGB custom-property color with optional alpha.
+/// Keeps merchant-controlled color schemes dynamic while removing repeated syntax.
+/// @example theme-color(foreground) => rgb(var(--color-foreground))
+/// @example theme-color(foreground, 0.75) => rgba(var(--color-foreground), 0.75)
+@function theme-color($token, $alpha: null) {
+  @if $alpha == null {
+    @return rgb(var(--color-#{$token}));
+  }
+
+  @return rgba(var(--color-#{$token}), $alpha);
+}
+
+/// Resolve a semantic z-index layer.
+@function z($layer) {
+  @if not map.has-key(v.$z-layers, $layer) {
+    @error 'Unknown z-index layer: #{$layer}';
+  }
+
+  @return map.get(v.$z-layers, $layer);
+}

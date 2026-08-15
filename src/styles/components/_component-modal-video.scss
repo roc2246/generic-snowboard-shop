@@ -1,5 +1,7 @@
+@use 'abstracts' as a;
+
 .modal-video {
-  background: rgba(var(--color-foreground), 0.2);
+  background: a.theme-color(foreground, 0.2);
   box-sizing: border-box;
   height: 100%;
   left: 0;
@@ -20,7 +22,7 @@
 }
 
 .modal-video__content {
-  background-color: rgb(var(--color-background));
+  background-color: a.theme-color(background);
   height: 100%;
   margin: 0;
   overflow: auto;
@@ -31,10 +33,10 @@
 
 .modal-video__toggle {
   align-items: center;
-  background-color: rgb(var(--color-background));
+  background-color: a.theme-color(background);
   border-radius: 50%;
-  border: 0.1rem solid rgba(var(--color-foreground), 0.1);
-  color: rgba(var(--color-foreground), 0.55);
+  border: 0.1rem solid a.theme-color(foreground, 0.1);
+  color: a.theme-color(foreground, 0.55);
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -47,14 +49,14 @@
   z-index: 2;
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   .modal-video__toggle {
     right: 4.8rem;
     top: 3.5rem;
   }
 }
 
-@media screen and (min-width: 990px) {
+@include a.media-up(desktop) {
   .modal-video__toggle {
     right: 4.3rem;
     top: 3rem;
@@ -74,7 +76,7 @@
   width: calc(100% - 1rem);
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   .modal-video__content-info {
     height: calc(100% - 7.5rem);
     padding-top: 9.5rem;
@@ -82,7 +84,7 @@
   }
 }
 
-@media screen and (min-width: 990px) {
+@include a.media-up(desktop) {
   .modal-video__content-info {
     height: calc(100% - 7rem);
     padding-top: 9rem;

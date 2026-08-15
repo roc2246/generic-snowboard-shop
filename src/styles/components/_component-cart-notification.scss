@@ -1,3 +1,5 @@
+@use 'abstracts' as a;
+
 .cart-notification-wrapper {
   position: relative;
 }
@@ -23,16 +25,16 @@
 }
 
 .cart-notification.focused {
-  box-shadow: 0 0 .2rem 0 rgba(var(--color-foreground), .3),
+  box-shadow: 0 0 .2rem 0 a.theme-color(foreground, .3),
   var(--popup-shadow-horizontal-offset) var(--popup-shadow-vertical-offset) var(--popup-shadow-blur-radius) rgba(var(--color-shadow), var(--popup-shadow-opacity));
 }
 
 .cart-notification:focus-visible {
-  box-shadow: 0 0 .2rem 0 rgba(var(--color-foreground), .3),
+  box-shadow: 0 0 .2rem 0 a.theme-color(foreground, .3),
   var(--popup-shadow-horizontal-offset) var(--popup-shadow-vertical-offset) var(--popup-shadow-blur-radius) rgba(var(--color-shadow), var(--popup-shadow-opacity));
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   .header-wrapper:not(.header-wrapper--border-bottom) + cart-notification .cart-notification {
     border-top-width: var(--popup-border-width);
   }
@@ -44,7 +46,7 @@
   }
 }
 
-@media screen and (min-width: 990px) {
+@include a.media-up(desktop) {
   .cart-notification-wrapper:is(.page-width) > .cart-notification {
     right: 4rem;
   }
@@ -75,7 +77,7 @@
 }
 
 .cart-notification__heading .icon-checkmark {
-  color: rgb(var(--color-foreground));
+  color: a.theme-color(foreground);
   margin-right: 1rem;
   width: 1.3rem;
 }

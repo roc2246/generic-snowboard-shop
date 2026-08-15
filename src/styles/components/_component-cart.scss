@@ -1,3 +1,5 @@
+@use 'abstracts' as a;
+
 .cart {
   position: relative;
   display: block;
@@ -41,7 +43,7 @@ cart-items.is-empty .title-wrapper-with-link,
   font-size: inherit;
 }
 
-@media screen and (min-width: 990px) {
+@include a.media-up(desktop) {
   .cart__warnings {
     padding: 7rem 0 1rem;
   }
@@ -58,7 +60,7 @@ cart-items {
 .cart__items {
   position: relative;
   padding-bottom: 3rem;
-  border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
+  border-bottom: 0.1rem solid a.theme-color(foreground, 0.08);
 }
 
 .cart__items--disabled {
@@ -96,7 +98,7 @@ cart-items {
   line-height: 1;
   height: 1.8rem;
   top: -3rem;
-  color: rgba(var(--color-foreground), 0.75);
+  color: a.theme-color(foreground, 0.75);
 }
 
 .cart__note .field__input {
@@ -117,7 +119,7 @@ cart-items {
   border-bottom-right-radius: 0;
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   .cart__items {
     grid-column-start: 1;
     grid-column-end: 3;
@@ -197,7 +199,7 @@ cart-items {
   text-align: center;
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   .cart-note {
     max-width: 35rem;
   }

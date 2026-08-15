@@ -4,13 +4,11 @@
     max-width: 100%;
   }
 }
-
 @media screen and (max-width: 989px) {
   .collection .slider.slider--tablet {
     margin-bottom: 1.5rem;
   }
 }
-
 .collection .loading-overlay {
   top: 0;
   right: 0;
@@ -28,7 +26,6 @@
     padding-right: 5rem;
   }
 }
-
 .collection.loading .loading-overlay {
   display: block;
 }
@@ -43,7 +40,6 @@
     scroll-padding-left: 1.5rem;
   }
 }
-
 .collection__description > * {
   margin: 0;
 }
@@ -60,21 +56,17 @@
   .collection__title--desktop-slider .title {
     margin-bottom: 2.5rem;
   }
-
   .collection__title.title-wrapper--self-padded-tablet-down {
     padding: 0 5rem;
   }
-
   .collection slider-component:not(.page-width-desktop) {
     padding: 0;
   }
-
   .collection--full-width slider-component:not(.slider-component-desktop) {
     padding: 0 1.5rem;
     max-width: none;
   }
 }
-
 .collection__view-all a:not(.link) {
   margin-top: 1rem;
 }

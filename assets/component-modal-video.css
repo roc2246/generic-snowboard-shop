@@ -53,14 +53,12 @@
     top: 3.5rem;
   }
 }
-
 @media screen and (min-width: 990px) {
   .modal-video__toggle {
     right: 4.3rem;
     top: 3rem;
   }
 }
-
 .modal-video__toggle .icon {
   height: auto;
   margin: 0;
@@ -81,7 +79,6 @@
     width: calc(100% - 9.6rem);
   }
 }
-
 @media screen and (min-width: 990px) {
   .modal-video__content-info {
     height: calc(100% - 7rem);
@@ -89,7 +86,6 @@
     width: calc(100% - 8.6rem);
   }
 }
-
 .modal-video__video,
 .modal-video__video iframe {
   height: 100%;

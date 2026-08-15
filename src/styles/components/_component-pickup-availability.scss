@@ -1,3 +1,5 @@
+@use 'abstracts' as a;
+
 pickup-availability {
   display: block;
 }
@@ -25,7 +27,7 @@ pickup-availability[available] {
 
 .pickup-availability-button {
   background-color: transparent;
-  color: rgba(var(--color-foreground), 0.75);
+  color: a.theme-color(foreground, 0.75);
   letter-spacing: 0.06rem;
   padding: 0 0 0.2rem;
   text-align: left;
@@ -33,7 +35,7 @@ pickup-availability[available] {
 }
 
 .pickup-availability-button:hover {
-  color: rgb(var(--color-foreground));
+  color: a.theme-color(foreground);
 }
 
 .pickup-availability-info * {
@@ -41,7 +43,7 @@ pickup-availability[available] {
 }
 
 pickup-availability-drawer {
-  background-color: rgb(var(--color-background));
+  background-color: a.theme-color(background);
   height: 100%;
   opacity: 0;
   overflow-y: auto;
@@ -70,7 +72,7 @@ pickup-availability-drawer[open] {
   opacity: 1;
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   pickup-availability-drawer {
     transform: translateX(100%);
     width: 37.5rem;
@@ -101,7 +103,7 @@ pickup-availability-drawer[open] {
 .pickup-availability-drawer-button {
   background-color: transparent;
   border: none;
-  color: rgb(var(--color-foreground));
+  color: a.theme-color(foreground);
   cursor: pointer;
   display: block;
   height: 4.4rem;
@@ -110,7 +112,7 @@ pickup-availability-drawer[open] {
 }
 
 .pickup-availability-drawer-button:hover {
-  color: rgba(var(--color-foreground), 0.75);
+  color: a.theme-color(foreground, 0.75);
 }
 
 .pickup-availability-variant {
@@ -125,12 +127,12 @@ pickup-availability-drawer[open] {
 }
 
 .pickup-availability-list__item {
-  border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
+  border-bottom: 0.1rem solid a.theme-color(foreground, 0.08);
   padding: 2rem 0;
 }
 
 .pickup-availability-list__item:first-child {
-  border-top: 0.1rem solid rgba(var(--color-foreground), 0.08);
+  border-top: 0.1rem solid a.theme-color(foreground, 0.08);
 }
 
 .pickup-availability-list__item > * {
@@ -152,7 +154,7 @@ pickup-availability-drawer[open] {
 }
 
 @keyframes animateDrawerOpen {
-  @media screen and (max-width: 749px) {
+  @include a.media-down(tablet) {
     0% {
       opacity: 0;
       transform: translateX(100%);
@@ -164,7 +166,7 @@ pickup-availability-drawer[open] {
     }
   }
 
-  @media screen and (min-width: 750px) {
+  @include a.media-up(tablet) {
     0% {
       opacity: 0;
       transform: translateX(100%);

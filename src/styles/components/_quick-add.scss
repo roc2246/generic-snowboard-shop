@@ -1,3 +1,5 @@
+@use 'abstracts' as a;
+
 .quick-add {
   position: relative;
   grid-row-start: 4;
@@ -19,7 +21,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  background: rgba(var(--color-foreground), 0.2);
+  background: a.theme-color(foreground, 0.2);
   height: 100%;
 }
 
@@ -37,13 +39,13 @@
   transform: translateX(-50%);
   margin: var(--modal-height-offset) auto 0;
   width: 100%;
-  background-color: rgb(var(--color-background));
+  background-color: a.theme-color(background);
   overflow: hidden;
   max-width: var(--page-width);
   width: calc(100% - 3rem);
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   .quick-add-modal__content {
     --modal-height-offset: 10rem;
     margin-top: var(--modal-height-offset);
@@ -58,7 +60,7 @@
   }
 }
 
-@media screen and (min-width: 990px) {
+@include a.media-up(desktop) {
   .quick-add-modal__content {
     width: 70%;
   }
@@ -84,7 +86,7 @@
   width: 100%;
 }
 
-@media screen and (max-width: 749px) {
+@include a.media-down(tablet) {
   quick-add-modal .slider .product__media-item.grid__item {
     margin-left: 1.5rem;
     margin-right: 1.5rem;
@@ -104,13 +106,11 @@
 }
 
 .quick-add-modal__toggle {
-  background-color: rgb(var(--color-background));
-  border: 0.1rem solid rgba(var(--color-foreground), 0.1);
+  background-color: a.theme-color(background);
+  border: 0.1rem solid a.theme-color(foreground, 0.1);
   border-radius: 50%;
-  color: rgba(var(--color-foreground), 0.55);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: a.theme-color(foreground, 0.55);
+  @include a.flex-center;
   cursor: pointer;
   padding: 1.2rem;
   z-index: 5;
@@ -121,7 +121,7 @@
 }
 
 .quick-add-modal__toggle:hover {
-  color: rgba(var(--color-foreground), 0.75);
+  color: a.theme-color(foreground, 0.75);
 }
 
 .quick-add-modal__toggle .icon {
@@ -158,7 +158,7 @@ quick-add-modal .product__column-sticky {
   position: relative;
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   quick-add-modal .product:not(.product--no-media) .product__media-wrapper {
     max-width: 45%;
     width: calc(45% - var(--grid-desktop-horizontal-spacing) / 2);
@@ -194,7 +194,7 @@ quick-add-modal .product__title > a {
 }
 
 quick-add-modal .product__title > a:hover {
-  color: rgb(var(--color-foreground));
+  color: a.theme-color(foreground);
   text-decoration: underline;
   text-underline-offset: 0.2rem;
   text-decoration-thickness: 0.3rem;
@@ -214,7 +214,7 @@ quick-add-modal .product-media-container.constrain-height {
   --viewport-offset: calc((var(--modal-height-offset) + var(--modal-padding) + var(--popup-border-width)) * 2);
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   quick-add-modal .product-media-container.constrain-height {
     --constrained-min-height: 400px;
   }

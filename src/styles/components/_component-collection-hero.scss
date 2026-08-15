@@ -1,3 +1,5 @@
+@use 'abstracts' as a;
+
 .collection-hero__inner {
   display: flex;
   flex-direction: column;
@@ -8,7 +10,7 @@
   padding-bottom: 2rem;
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   .collection-hero.collection-hero--with-image {
     padding: calc(4rem + var(--page-width-margin)) 0
       calc(4rem + var(--page-width-margin));
@@ -24,7 +26,7 @@
   flex-basis: 100%;
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   .collection-hero {
     padding: 0;
   }
@@ -47,7 +49,7 @@
   line-height: calc(1 + 0.5 / var(--font-body-scale));
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   .collection-hero__title + .collection-hero__description {
     font-size: 1.8rem;
     margin-top: 2rem;
@@ -80,13 +82,13 @@
     rgba(var(--color-shadow), var(--media-shadow-opacity));
 }
 
-@media screen and (max-width: 749px) {
+@include a.media-down(tablet) {
   .collection-hero__image-container {
     height: 20rem;
   }
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   .collection-hero--with-image .collection-hero__text-wrapper {
     padding: 4rem 2rem 4rem 0;
     flex-basis: 50%;

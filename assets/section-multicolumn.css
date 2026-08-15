@@ -14,13 +14,11 @@
   .multicolumn .title-wrapper-with-link {
     margin-bottom: 3rem;
   }
-
   .multicolumn .page-width {
     padding-left: 0;
     padding-right: 0;
   }
 }
-
 .multicolumn-card__image-wrapper--third-width {
   width: 33%;
 }
@@ -29,8 +27,7 @@
   width: 50%;
 }
 
-.multicolumn-list__item.center
-  .multicolumn-card__image-wrapper:not(.multicolumn-card__image-wrapper--full-width),
+.multicolumn-list__item.center .multicolumn-card__image-wrapper:not(.multicolumn-card__image-wrapper--full-width),
 .multicolumn-list__item:only-child {
   margin-left: auto;
   margin-right: auto;
@@ -45,7 +42,6 @@
     margin-top: 4rem;
   }
 }
-
 .multicolumn-list {
   margin-top: 0;
   margin-bottom: 0;
@@ -103,30 +99,24 @@
     margin: 0;
     width: 100%;
   }
-
   .multicolumn-list:not(.slider) {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
 }
-
-
 @media screen and (min-width: 750px) {
   .multicolumn-list.slider,
   .multicolumn-list.grid--4-col-desktop {
     padding: 0;
   }
-
   .multicolumn-list__item,
   .grid--4-col-desktop .multicolumn-list__item {
     padding-bottom: 0;
   }
-
   .background-none .grid--2-col-tablet .multicolumn-list__item {
     margin-top: 4rem;
   }
 }
-
 .background-none .multicolumn-card-spacing {
   padding: 0;
   margin: 0;
@@ -154,17 +144,11 @@
   padding-left: 0.5rem;
 }
 
-.background-none
-  .slider
-  .multicolumn-card__image-wrapper
-  + .multicolumn-card__info {
+.background-none .slider .multicolumn-card__image-wrapper + .multicolumn-card__info {
   padding-left: 1.5rem;
 }
 
-.background-none
-  .multicolumn-list:not(.slider)
-  .center
-  .multicolumn-card__info {
+.background-none .multicolumn-list:not(.slider) .center .multicolumn-card__info {
   padding-left: 2.5rem;
   padding-right: 2.5rem;
 }
@@ -173,28 +157,21 @@
   .background-none .slider .multicolumn-card__info {
     padding-bottom: 1rem;
   }
-
   .multicolumn.background-none .slider.slider--mobile {
     margin-bottom: 0rem;
   }
 }
-
 @media screen and (min-width: 750px) {
   .background-none .multicolumn-card__image-wrapper {
     margin-left: 1.5rem;
     margin-right: 1.5rem;
   }
-
   .background-none .multicolumn-list .multicolumn-card__info,
-  .background-none
-    .multicolumn-list:not(.slider)
-    .center
-    .multicolumn-card__info {
+  .background-none .multicolumn-list:not(.slider) .center .multicolumn-card__info {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
 }
-
 .multicolumn-card {
   position: relative;
   box-sizing: border-box;

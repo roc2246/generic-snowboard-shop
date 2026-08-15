@@ -1,3 +1,5 @@
+@use 'abstracts' as a;
+
 .multicolumn .title {
   margin: 0;
 }
@@ -10,7 +12,7 @@
   margin-top: 0;
 }
 
-@media screen and (max-width: 749px) {
+@include a.media-down(tablet) {
   .multicolumn .title-wrapper-with-link {
     margin-bottom: 3rem;
   }
@@ -40,7 +42,7 @@
   margin-top: 1.5rem;
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   .multicolumn .button {
     margin-top: 4rem;
   }
@@ -61,12 +63,12 @@
 }
 
 .multicolumn:not(.background-none) .multicolumn-card {
-  background: rgb(var(--color-background));
+  background: a.theme-color(background);
   height: 100%;
 }
 
 .multicolumn.background-primary .multicolumn-card {
-  background: rgb(var(--color-background)) linear-gradient(rgba(var(--color-foreground), 0.04), rgba(var(--color-foreground), 0.04));
+  background: a.theme-color(background) linear-gradient(a.theme-color(foreground, 0.04), a.theme-color(foreground, 0.04));
 }
 
 .multicolumn-list h3 {
@@ -98,7 +100,7 @@
   transform: translateX(-50%);
 }
 
-@media screen and (max-width: 749px) {
+@include a.media-down(tablet) {
   .multicolumn-list {
     margin: 0;
     width: 100%;
@@ -111,7 +113,7 @@
 }
 
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   .multicolumn-list.slider,
   .multicolumn-list.grid--4-col-desktop {
     padding: 0;
@@ -169,7 +171,7 @@
   padding-right: 2.5rem;
 }
 
-@media screen and (max-width: 749px) {
+@include a.media-down(tablet) {
   .background-none .slider .multicolumn-card__info {
     padding-bottom: 1rem;
   }
@@ -179,7 +181,7 @@
   }
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   .background-none .multicolumn-card__image-wrapper {
     margin-left: 1.5rem;
     margin-right: 1.5rem;
@@ -221,7 +223,7 @@
   white-space: nowrap;
 }
 
-@media screen and (min-width: 990px) {
+@include a.media-up(desktop) {
   .multicolumn-list__item--empty {
     display: list-item;
   }

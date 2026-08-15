@@ -48,6 +48,23 @@ This performs:
 - SCSS source -> flat Shopify CSS assets
 - TypeScript source -> Shopify JavaScript assets
 
+
+## SCSS quality checks
+
+```bash
+npm run check:styles
+```
+
+This compiles every SCSS entry point without writing output, then validates the source architecture: unique Shopify output names, shared Sass module usage, centralized standard breakpoints, and use of the theme-color helper for simple color expressions.
+
+For a production/minified CSS build:
+
+```bash
+npm run build:styles:prod
+```
+
+Use `npm run build:styles` during normal development for readable expanded CSS.
+
 ## Type-check
 
 ```bash

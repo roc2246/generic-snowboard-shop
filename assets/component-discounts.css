@@ -21,7 +21,6 @@
     justify-content: flex-end;
   }
 }
-
 .discounts__discount > .icon {
   color: rgb(var(--color-foreground));
   width: 1.2rem;
