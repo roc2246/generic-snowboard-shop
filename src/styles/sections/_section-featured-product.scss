@@ -1,3 +1,5 @@
+@use 'abstracts' as a;
+
 .featured-product .product__media-list {
   width: 100%;
   margin: 0;
@@ -38,7 +40,7 @@
   display: table;
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   .featured-product .product__media-item {
     padding-bottom: 0;
   }
@@ -48,7 +50,7 @@
   }
 }
 
-@media screen and (min-width: 990px) {
+@include a.media-up(desktop) {
   .background-secondary .featured-product:not(.product--no-media) > .product__info-wrapper {
     padding: 0 0 0 5rem;
   }

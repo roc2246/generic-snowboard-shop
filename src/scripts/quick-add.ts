@@ -1,6 +1,9 @@
-// @ts-nocheck
 if (!customElements.get('quick-add-modal')) {
   customElements.define('quick-add-modal', class QuickAddModal extends ModalDialog {
+  declare modalContent: HTMLElement;
+  declare openedBy: HTMLElement | null;
+  declare productElement: HTMLElement | null;
+
     constructor() {
       super();
       this.modalContent = this.querySelector('[id^="QuickAddInfo-"]');
@@ -53,7 +56,7 @@ if (!customElements.get('quick-add-modal')) {
       // Reinjects the script tags to allow execution. By default, scripts are disabled when using element.innerHTML.
       element.querySelectorAll('script').forEach(oldScriptTag => {
         const newScriptTag = document.createElement('script');
-        Array.from(oldScriptTag.attributes).forEach(attribute => {
+        Array.from(oldScriptTag.attributes).forEach((attribute: Attr) => {
           newScriptTag.setAttribute(attribute.name, attribute.value)
         });
         newScriptTag.appendChild(document.createTextNode(oldScriptTag.innerHTML));

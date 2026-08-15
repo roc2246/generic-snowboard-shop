@@ -1,5 +1,6 @@
-// @ts-nocheck
 class MainSearch extends SearchForm {
+  declare allSearchInputs: NodeListOf<HTMLInputElement>;
+
   constructor() {
     super();
     this.allSearchInputs = document.querySelectorAll('input[type="search"]');

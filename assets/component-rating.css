@@ -1,6 +1,12 @@
+@charset "UTF-8";
 .rating {
   display: inline-block;
   margin: 0;
+}
+@media (forced-colors: active) {
+  .rating {
+    display: none;
+  }
 }
 
 .product .rating-star {
@@ -28,14 +34,9 @@
   font-family: Times;
   margin: 0;
 }
-
 .rating-star::before {
-  content: '★★★★★';
-  background: linear-gradient(
-    90deg,
-    var(--color-icon) var(--percent),
-    rgba(var(--color-foreground), 0.15) var(--percent)
-  );
+  content: "★★★★★";
+  background: linear-gradient(90deg, var(--color-icon) var(--percent), rgba(var(--color-foreground), 0.15) var(--percent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -43,18 +44,13 @@
 .rating-text {
   display: none;
 }
+@media (forced-colors: active) {
+  .rating-text {
+    display: block;
+  }
+}
 
 .rating-count {
   display: inline-block;
   margin: 0;
-}
-
-@media (forced-colors: active) {
-  .rating {
-    display: none;
-  }
-
-  .rating-text {
-    display: block;
-  }
 }

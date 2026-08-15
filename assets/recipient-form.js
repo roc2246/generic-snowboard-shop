@@ -1,5 +1,3 @@
-"use strict";
-// @ts-nocheck
 if (!customElements.get('recipient-form')) {
     customElements.define('recipient-form', class RecipientForm extends HTMLElement {
         constructor() {

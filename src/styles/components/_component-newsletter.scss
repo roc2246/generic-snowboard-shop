@@ -1,3 +1,5 @@
+@use 'abstracts' as a;
+
 .newsletter-form {
   display: flex;
   flex-direction: column;
@@ -7,7 +9,7 @@
   position: relative;
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   .newsletter-form {
     align-items: flex-start;
     margin: 0 auto;
@@ -36,7 +38,7 @@
   margin-top: 2rem;
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   .newsletter-form__message {
     justify-content: flex-start;
   }
@@ -52,13 +54,13 @@
 }
 
 .newsletter-form__button:focus-visible {
-  box-shadow: 0 0 0 .3rem rgb(var(--color-background)),0 0 0 .4rem rgba(var(--color-foreground));
-  background-color: rgb(var(--color-background));
+  box-shadow: 0 0 0 .3rem a.theme-color(background),0 0 0 .4rem rgba(var(--color-foreground));
+  background-color: a.theme-color(background);
 }
 
 .newsletter-form__button:focus {
-  box-shadow: 0 0 0 .3rem rgb(var(--color-background)),0 0 0 .4rem rgba(var(--color-foreground));
-  background-color: rgb(var(--color-background));
+  box-shadow: 0 0 0 .3rem a.theme-color(background),0 0 0 .4rem rgba(var(--color-foreground));
+  background-color: a.theme-color(background);
 }
 
 .newsletter-form__button:not(:focus-visible):not(.focused) {

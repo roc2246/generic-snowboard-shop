@@ -1,12 +1,19 @@
-// @ts-nocheck
 
 if (!customElements.get('product-form')) {
   customElements.define('product-form', class ProductForm extends HTMLElement {
+  declare cart: any;
+  declare error: boolean;
+  declare errorMessage: HTMLElement | null;
+  declare errorMessageWrapper: HTMLElement | null;
+  declare form: HTMLFormElement;
+  declare hideErrors: boolean;
+  declare submitButton: HTMLButtonElement;
+
     constructor() {
       super();
 
       this.form = this.querySelector('form');
-      this.form.querySelector('[name=id]').disabled = false;
+      (this.form.querySelector('[name=id]') as HTMLInputElement).disabled = false;
       this.form.addEventListener('submit', this.onSubmitHandler.bind(this));
       this.cart = document.querySelector('cart-notification') || document.querySelector('cart-drawer');
       this.submitButton = this.querySelector('[type="submit"]');
@@ -21,7 +28,7 @@ if (!customElements.get('product-form')) {
 
       this.handleErrorMessage();
 
-      this.submitButton.setAttribute('aria-disabled', true);
+      this.submitButton.setAttribute('aria-disabled', 'true');
       this.submitButton.classList.add('loading');
       this.querySelector('.loading-overlay__spinner').classList.remove('hidden');
 
@@ -40,7 +47,7 @@ if (!customElements.get('product-form')) {
       const sellingPlanId = window.getCurrentSellingPlanId();
       formData.append("selling_plan", sellingPlanId);
       
-      config.body = formData;
+      (config as RequestInit).body = formData;
 
       fetch(`${routes.cart_add_url}`, config)
         .then((response) => response.json())
@@ -51,13 +58,13 @@ if (!customElements.get('product-form')) {
 
             const soldOutMessage = this.submitButton.querySelector('.sold-out-message');
             if (!soldOutMessage) return;
-            this.submitButton.setAttribute('aria-disabled', true);
+            this.submitButton.setAttribute('aria-disabled', 'true');
             this.submitButton.querySelector('span').classList.add('hidden');
             soldOutMessage.classList.remove('hidden');
             this.error = true;
             return;
           } else if (!this.cart) {
-            window.location = window.routes.cart_url;
+            window.location.assign(window.routes.cart_url);
             return;
           }
 
@@ -84,14 +91,14 @@ if (!customElements.get('product-form')) {
         });
     }
 
-    handleErrorMessage(errorMessage = false) {
+    handleErrorMessage(errorMessage: string | false = false) {
       if (this.hideErrors) return;
 
       this.errorMessageWrapper = this.errorMessageWrapper || this.querySelector('.product-form__error-message-wrapper');
       if (!this.errorMessageWrapper) return;
       this.errorMessage = this.errorMessage || this.errorMessageWrapper.querySelector('.product-form__error-message');
 
-      this.errorMessageWrapper.toggleAttribute('hidden', !errorMessage);
+      this.errorMessageWrapper.toggleAttribute('hidden', !Boolean(errorMessage));
 
       if (errorMessage) {
         this.errorMessage.textContent = errorMessage;

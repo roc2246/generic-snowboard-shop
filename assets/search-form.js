@@ -1,5 +1,3 @@
-"use strict";
-// @ts-nocheck
 class SearchForm extends HTMLElement {
     constructor() {
         super();
@@ -21,7 +19,7 @@ class SearchForm extends HTMLElement {
             this.resetButton.classList.add('hidden');
         }
     }
-    onChange() {
+    onChange(_event) {
         this.toggleResetButton();
     }
     shouldResetForm() {

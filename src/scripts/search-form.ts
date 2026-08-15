@@ -1,5 +1,7 @@
-// @ts-nocheck
 class SearchForm extends HTMLElement {
+  declare input: HTMLInputElement;
+  declare resetButton: HTMLButtonElement | null;
+
   constructor() {
     super();
     this.input = this.querySelector('input[type="search"]');
@@ -22,7 +24,7 @@ class SearchForm extends HTMLElement {
     }
   }
 
-  onChange() {
+  onChange(_event?: Event) {
     this.toggleResetButton();
   }
 

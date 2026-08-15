@@ -1,5 +1,10 @@
-// @ts-nocheck
 class CartNotification extends HTMLElement {
+  declare activeElement: HTMLElement | null;
+  declare cartItemKey: string;
+  declare header: HTMLElement | null;
+  declare notification: HTMLElement;
+  declare onBodyClick: EventListener;
+
   constructor() {
     super();
 

@@ -1,3 +1,5 @@
+@use 'abstracts' as a;
+
 .collection-list {
   margin-top: 0;
   margin-bottom: 0;
@@ -7,7 +9,7 @@
   margin: 0;
 }
 
-@media screen and (max-width: 749px) {
+@include a.media-down(tablet) {
   .collection-list:not(.slider) {
     padding-left: 0;
     padding-right: 0;
@@ -29,13 +31,13 @@
   width: 100%;
 }
 
-@media screen and (max-width: 749px) {
+@include a.media-down(tablet) {
   .slider.collection-list--1-items {
     padding-bottom: 0;
   }
 }
 
-@media screen and (min-width: 750px) and (max-width: 989px) {
+@include a.media-between(tablet, desktop) {
   .slider.collection-list--1-items,
   .slider.collection-list--2-items,
   .slider.collection-list--3-items,
@@ -44,13 +46,13 @@
   }
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   .collection-list__item a:hover {
     box-shadow: none;
   }
 }
 
-@media screen and (max-width: 989px) {
+@include a.media-down(desktop) {
   .collection-list.slider .collection-list__item {
     max-width: 100%;
   }

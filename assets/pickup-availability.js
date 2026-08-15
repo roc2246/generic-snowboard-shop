@@ -1,5 +1,3 @@
-"use strict";
-// @ts-nocheck
 if (!customElements.get('pickup-availability')) {
     customElements.define('pickup-availability', class PickupAvailability extends HTMLElement {
         constructor() {

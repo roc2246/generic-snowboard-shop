@@ -1,5 +1,3 @@
-"use strict";
-// @ts-nocheck
 if (!customElements.get('share-button')) {
     customElements.define('share-button', class ShareButton extends DetailsDisclosure {
         constructor() {

@@ -1,3 +1,5 @@
+@use 'abstracts' as a;
+
 .collage-wrapper-title {
   margin-top: 0;
   margin-bottom: 3rem;
@@ -15,7 +17,7 @@
   flex-grow: initial;
 }
 
-@media screen and (max-width: 749px) {
+@include a.media-down(tablet) {
   .collage {
     grid-column-gap: var(--grid-mobile-horizontal-spacing);
     grid-row-gap: var(--grid-mobile-vertical-spacing);
@@ -54,7 +56,7 @@
   }
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   .collage {
     grid-auto-flow: column;
     grid-column-gap: var(--grid-desktop-horizontal-spacing);
@@ -111,7 +113,7 @@
 }
 
 .collage-card {
-  background: rgb(var(--color-background));
+  background: a.theme-color(background);
   height: 100%;
   position: relative;
   border-radius: var(--border-radius);
@@ -176,13 +178,13 @@
 }
 
 .collage-card .deferred-media__poster:focus:after {
-  box-shadow: 0 0 0 0.3rem rgb(var(--color-background)), 0 0 0.5rem 0.4rem rgba(var(--color-foreground), 0.3);
-  outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
+  box-shadow: 0 0 0 0.3rem a.theme-color(background), 0 0 0.5rem 0.4rem a.theme-color(foreground, 0.3);
+  outline: 0.2rem solid a.theme-color(foreground, 0.5);
 }
 
 .collage-card .deferred-media__poster:focus-visible:after {
-  box-shadow: 0 0 0 0.3rem rgb(var(--color-background)), 0 0 0.5rem 0.4rem rgba(var(--color-foreground), 0.3);
-  outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
+  box-shadow: 0 0 0 0.3rem a.theme-color(background), 0 0 0.5rem 0.4rem a.theme-color(foreground, 0.3);
+  outline: 0.2rem solid a.theme-color(foreground, 0.5);
 }
 
 .collage-card .deferred-media__poster:focus:not(:focus-visible),

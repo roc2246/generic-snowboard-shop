@@ -1,3 +1,5 @@
+@use 'abstracts' as a;
+
 .complementary-products__container {
   display: flex;
   flex-direction: column;
@@ -32,7 +34,7 @@ product-recommendations:not(.is-accordion) .complementary-products__container {
   gap: calc(var(--grid-mobile-vertical-spacing) + 8px);
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   .complementary-slide > ul {
     gap: var(--grid-desktop-vertical-spacing);
   }
@@ -67,7 +69,7 @@ product-recommendations.is-accordion + .accordion {
 }
 
 .complementary-products > .summary__title .icon-accordion {
-  fill: rgb(var(--color-foreground));
+  fill: a.theme-color(foreground);
   height: calc(var(--font-heading-scale) * 2rem);
   margin-right: calc(var(--font-heading-scale) * 1rem);
   width: calc(var(--font-heading-scale) * 2rem);
@@ -82,7 +84,7 @@ product-recommendations.is-accordion + .accordion {
   max-width: 20%;
 }
 
-@media screen and (min-width: 750px) and (max-width: 1200px){
+@include a.media-between(750px, 1201px){
   .complementary-products__container .card--horizontal .card__inner {
     max-width: 25%
   }
@@ -153,7 +155,7 @@ product-recommendations.is-accordion + .accordion {
   text-align: var(--text-alignment);
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   .complementary-products__container .price--on-sale .price-item--regular {
     font-size: 1.3rem;
   }

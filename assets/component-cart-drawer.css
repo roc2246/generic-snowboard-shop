@@ -200,15 +200,13 @@ cart-drawer-items {
   cart-drawer-items {
     overflow: visible;
   }
-
   .drawer__inner {
     overflow: scroll;
   }
 }
-
 .cart-drawer .cart-item {
   display: grid;
-  grid-template: repeat(2,auto) / repeat(4,1fr);
+  grid-template: repeat(2, auto)/repeat(4, 1fr);
   gap: 1.5rem;
   margin-bottom: 0;
 }
@@ -218,7 +216,7 @@ cart-drawer-items {
 }
 
 .cart-drawer .cart-item__media {
-  grid-row: 1 / 3;
+  grid-row: 1/3;
 }
 
 .cart-drawer .cart-item__image {
@@ -268,7 +266,7 @@ cart-drawer-items {
 
 .cart-drawer .cart-item__details {
   width: auto;
-  grid-column: 2 / 4;
+  grid-column: 2/4;
 }
 
 .cart-drawer .cart-item__totals {
@@ -294,7 +292,7 @@ cart-drawer-items {
 
 .cart-drawer .cart-items .cart-item__quantity {
   padding-top: 0;
-  grid-column: 2 / 5;
+  grid-column: 2/5;
 }
 
 @media screen and (max-width: 749px) {
@@ -302,7 +300,6 @@ cart-drawer-items {
     margin-left: 0;
   }
 }
-
 .cart-drawer__footer > * + * {
   margin-top: 1rem;
 }
@@ -324,7 +321,7 @@ cart-drawer-items {
   word-break: break-word;
 }
 
-.cart-drawer details[open]>summary .icon-caret {
+.cart-drawer details[open] > summary .icon-caret {
   transform: rotate(180deg);
 }
 
@@ -348,7 +345,7 @@ cart-drawer-items {
 }
 
 .drawer__footer #dynamic-checkout-cart ul > li {
-	flex-basis: calc(50% - 0.5rem) !important;
+  flex-basis: calc(50% - 0.5rem) !important;
   margin: 0 !important;
 }
 
@@ -359,18 +356,16 @@ cart-drawer-items {
 
 @media screen and (min-width: 750px) {
   .drawer__footer #dynamic-checkout-cart ul > li {
-    flex-basis: calc(100% / 3 - 0.5rem) !important;
+    flex-basis: calc(33.3333333333% - 0.5rem) !important;
     margin: 0 !important;
   }
-
   .drawer__footer #dynamic-checkout-cart ul > li:first-child:nth-last-child(2),
   .drawer__footer #dynamic-checkout-cart ul > li:first-child:nth-last-child(2) ~ li,
   .drawer__footer #dynamic-checkout-cart ul > li:first-child:nth-last-child(4),
   .drawer__footer #dynamic-checkout-cart ul > li:first-child:nth-last-child(4) ~ li {
-	  flex-basis: calc(50% - 0.5rem) !important;
+    flex-basis: calc(50% - 0.5rem) !important;
   }
 }
-
 cart-drawer-items::-webkit-scrollbar {
   width: 3px;
 }

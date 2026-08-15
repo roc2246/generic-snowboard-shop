@@ -1,5 +1,7 @@
-// @ts-nocheck
 class CartDrawer extends HTMLElement {
+  declare activeElement: HTMLElement | null;
+  declare productId: string | number | null;
+
   constructor() {
     super();
 
@@ -16,7 +18,7 @@ class CartDrawer extends HTMLElement {
       event.preventDefault();
       this.open(cartLink)
     });
-    cartLink.addEventListener('keydown', (event) => {
+    cartLink.addEventListener('keydown', (event: KeyboardEvent) => {
       if (event.code.toUpperCase() === 'SPACE') {
         event.preventDefault();
         this.open(cartLink);
@@ -72,7 +74,7 @@ class CartDrawer extends HTMLElement {
 
     setTimeout(() => {
       this.querySelector('#CartDrawer-Overlay').addEventListener('click', this.close.bind(this));
-      this.open();
+      this.open(undefined);
     });
   }
 

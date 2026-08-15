@@ -1,5 +1,8 @@
-// @ts-nocheck
 class DetailsModal extends HTMLElement {
+  declare detailsContainer: HTMLDetailsElement;
+  declare onBodyClickEvent: EventListener;
+  declare summaryToggle: HTMLElement;
+
   constructor() {
     super();
     this.detailsContainer = this.querySelector('details');

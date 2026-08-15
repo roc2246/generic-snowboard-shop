@@ -1,5 +1,3 @@
-"use strict";
-// @ts-nocheck
 class CartNotification extends HTMLElement {
     constructor() {
         super();

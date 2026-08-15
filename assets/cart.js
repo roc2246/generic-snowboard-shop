@@ -1,5 +1,3 @@
-"use strict";
-// @ts-nocheck
 class CartRemoveButton extends HTMLElement {
     constructor() {
         super();
@@ -141,11 +139,11 @@ class CartItems extends HTMLElement {
         const lineItemError = document.getElementById(`Line-item-error-${line}`) || document.getElementById(`CartDrawer-LineItemError-${line}`);
         if (lineItemError)
             lineItemError.querySelector('.cart-item__error-text').innerHTML = message;
-        this.lineItemStatusElement.setAttribute('aria-hidden', true);
+        this.lineItemStatusElement.setAttribute('aria-hidden', String(true));
         const cartStatus = document.getElementById('cart-live-region-text') || document.getElementById('CartDrawer-LiveRegionText');
-        cartStatus.setAttribute('aria-hidden', false);
+        cartStatus.setAttribute('aria-hidden', String(false));
         setTimeout(() => {
-            cartStatus.setAttribute('aria-hidden', true);
+            cartStatus.setAttribute('aria-hidden', String(true));
         }, 1000);
     }
     getSectionInnerHTML(html, selector) {
@@ -160,7 +158,7 @@ class CartItems extends HTMLElement {
         const cartDrawerItemElements = this.querySelectorAll(`#CartDrawer-Item-${line} .loading-overlay`);
         [...cartItemElements, ...cartDrawerItemElements].forEach((overlay) => overlay.classList.remove('hidden'));
         document.activeElement.blur();
-        this.lineItemStatusElement.setAttribute('aria-hidden', false);
+        this.lineItemStatusElement.setAttribute('aria-hidden', String(false));
     }
     disableLoading(line) {
         const mainCartItems = document.getElementById('main-cart-items') || document.getElementById('CartDrawer-CartItems');

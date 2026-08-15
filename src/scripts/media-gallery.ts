@@ -1,6 +1,9 @@
-// @ts-nocheck
 if (!customElements.get('media-gallery')) {
   customElements.define('media-gallery', class MediaGallery extends HTMLElement {
+  declare elements: Record<string, any>;
+  declare mql: MediaQueryList;
+  declare stickyHeader: HTMLElement | null;
+
     constructor() {
       super();
       this.elements = {

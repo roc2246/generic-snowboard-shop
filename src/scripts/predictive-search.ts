@@ -1,5 +1,14 @@
-// @ts-nocheck
 class PredictiveSearch extends SearchForm {
+  declare abortController: AbortController;
+  declare allPredictiveSearchInstances: NodeListOf<PredictiveSearch>;
+  declare cachedResults: Record<string, string>;
+  declare isOpen: boolean;
+  declare loadingText: string;
+  declare predictiveSearchResults: HTMLElement | null;
+  declare resultsMaxHeight: number | false;
+  declare searchTerm: string;
+  declare statusElement: HTMLElement | null;
+
   constructor() {
     super();
     this.cachedResults = {};
@@ -168,10 +177,10 @@ class PredictiveSearch extends SearchForm {
 
     const activeElement = allVisibleElements[activeElementIndex];
 
-    activeElement.setAttribute('aria-selected', true);
-    if (selectedElement) selectedElement.setAttribute('aria-selected', false);
+    activeElement.setAttribute('aria-selected', String(true));
+    if (selectedElement) selectedElement.setAttribute('aria-selected', String(false));
 
-    this.input.setAttribute('aria-activedescendant', activeElement.id);
+    this.input.setAttribute('aria-activedescendant', String(activeElement.id));
   }
 
   selectOption() {
@@ -199,7 +208,7 @@ class PredictiveSearch extends SearchForm {
     )
       .then((response) => {
         if (!response.ok) {
-          var error = new Error(response.status);
+          var error = new Error(String(response.status));
           this.close();
           throw error;
         }
@@ -231,7 +240,7 @@ class PredictiveSearch extends SearchForm {
     this.loadingText = this.loadingText || this.getAttribute('data-loading-text');
 
     this.setLiveRegionText(this.loadingText);
-    this.setAttribute('loading', true);
+    this.setAttribute('loading', String(true));
   }
 
   setLiveRegionText(statusText) {
@@ -245,7 +254,7 @@ class PredictiveSearch extends SearchForm {
 
   renderSearchResults(resultsMarkup) {
     this.predictiveSearchResults.innerHTML = resultsMarkup;
-    this.setAttribute('results', true);
+    this.setAttribute('results', String(true));
 
     this.setLiveRegionResults();
     this.open();
@@ -262,9 +271,9 @@ class PredictiveSearch extends SearchForm {
   }
 
   open() {
-    this.predictiveSearchResults.style.maxHeight = this.resultsMaxHeight || `${this.getResultsMaxHeight()}px`;
-    this.setAttribute('open', true);
-    this.input.setAttribute('aria-expanded', true);
+    this.predictiveSearchResults.style.maxHeight = typeof this.resultsMaxHeight === 'number' ? `${this.resultsMaxHeight}px` : `${this.getResultsMaxHeight()}px`;
+    this.setAttribute('open', String(true));
+    this.input.setAttribute('aria-expanded', String(true));
     this.isOpen = true;
   }
 
@@ -280,12 +289,12 @@ class PredictiveSearch extends SearchForm {
     }
     const selected = this.querySelector('[aria-selected="true"]');
 
-    if (selected) selected.setAttribute('aria-selected', false);
+    if (selected) selected.setAttribute('aria-selected', String(false));
 
     this.input.setAttribute('aria-activedescendant', '');
     this.removeAttribute('loading');
     this.removeAttribute('open');
-    this.input.setAttribute('aria-expanded', false);
+    this.input.setAttribute('aria-expanded', String(false));
     this.resultsMaxHeight = false
     this.predictiveSearchResults.removeAttribute('style');
   }

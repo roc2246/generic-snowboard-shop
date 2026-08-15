@@ -1,3 +1,5 @@
+@use 'abstracts' as a;
+
 .header__icon--menu {
   position: initial;
 }
@@ -14,7 +16,7 @@
   );
   top: 100%;
   left: 0;
-  background: rgba(var(--color-foreground), 0.5);
+  background: a.theme-color(foreground, 0.5);
   opacity: 0;
   visibility: hidden;
   z-index: 2;
@@ -38,7 +40,7 @@ menu-drawer > details[open] > summary::before {
   width: calc(100vw - 4rem);
   padding: 0;
   border-width: 0 var(--drawer-border-width) 0 0;
-  background-color: rgb(var(--color-background));
+  background-color: a.theme-color(background);
   overflow-x: hidden;
   border-style: solid;
   border-color: rgba(var(--color-foreground), var(--drawer-border-opacity));
@@ -74,7 +76,7 @@ details[open].menu-opening > .menu-drawer__submenu {
   visibility: hidden; /* hide menus from screen readers when hidden by submenu */
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   .menu-drawer {
     width: 40rem;
   }
@@ -112,11 +114,11 @@ details[open].menu-opening > .menu-drawer__submenu {
 }
 
 .no-js .menu-drawer__navigation > ul > li {
-  border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.04);
+  border-bottom: 0.1rem solid a.theme-color(foreground, 0.04);
 }
 
 .no-js .menu-drawer__submenu ul > li {
-  border-top: 0.1rem solid rgba(var(--color-foreground), 0.04);
+  border-top: 0.1rem solid a.theme-color(foreground, 0.04);
 }
 
 .js .menu-drawer__menu li {
@@ -154,12 +156,12 @@ details[open].menu-opening > .menu-drawer__submenu {
 .menu-drawer__close-button:focus,
 .menu-drawer__menu-item:hover,
 .menu-drawer__close-button:hover {
-  color: rgb(var(--color-foreground));
-  background-color: rgba(var(--color-foreground), 0.04);
+  color: a.theme-color(foreground);
+  background-color: a.theme-color(foreground, 0.04);
 }
 
 .menu-drawer__menu-item--active:hover {
-  background-color: rgba(var(--color-foreground), 0.08);
+  background-color: a.theme-color(foreground, 0.08);
 }
 
 .js .menu-drawer__menu-item .icon-caret,
@@ -180,8 +182,8 @@ details[open].menu-opening > .menu-drawer__submenu {
   width: 100%;
   bottom: 0;
   left: 0;
-  background-color: rgb(var(--color-background));
-  border-left: 0.1rem solid rgba(var(--color-foreground), 0.2);
+  background-color: a.theme-color(background);
+  border-left: 0.1rem solid a.theme-color(foreground, 0.2);
   z-index: 1;
   transform: translateX(100%);
   visibility: hidden;
@@ -216,7 +218,7 @@ details[open].menu-opening > .menu-drawer__submenu {
 
 .menu-drawer__utility-links {
   padding: 2rem;
-  background-color: rgba(var(--color-foreground), 0.03);
+  background-color: a.theme-color(foreground, 0.03);
   position: relative;
 }
 
@@ -226,7 +228,7 @@ details[open].menu-opening > .menu-drawer__submenu {
   text-decoration: none;
   padding: 1.2rem;
   font-size: 1.4rem;
-  color: rgb(var(--color-foreground));
+  color: a.theme-color(foreground);
   margin-bottom: 2rem;
 }
 
@@ -235,7 +237,7 @@ details[open].menu-opening > .menu-drawer__submenu {
   margin-bottom: 0;
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   .menu-drawer__utility-links:has(ul:nth-child(2):empty) {
     display: none;
   }

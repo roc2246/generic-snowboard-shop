@@ -1,8 +1,10 @@
+@use 'abstracts' as a;
+
 .pagination-wrapper {
   margin-top: 4rem;
 }
 
-@media screen and (min-width: 990px) {
+@include a.media-up(desktop) {
   .pagination-wrapper {
     margin-top: 5rem;
   }
@@ -24,7 +26,7 @@
 }
 
 .pagination__item {
-  color: rgb(var(--color-foreground));
+  color: a.theme-color(foreground);
   display: inline-flex;
   justify-content: center;
   align-items: center;

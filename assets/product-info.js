@@ -1,5 +1,3 @@
-"use strict";
-// @ts-nocheck
 if (!customElements.get('product-info')) {
     customElements.define('product-info', class ProductInfo extends HTMLElement {
         constructor() {
@@ -50,9 +48,9 @@ if (!customElements.get('product-info')) {
                 min = Math.min(min, max);
             if (data.cartQuantity >= data.min)
                 min = Math.min(min, data.step);
-            this.input.min = min;
-            this.input.max = max;
-            this.input.value = min;
+            this.input.min = String(min);
+            this.input.max = max === null ? '' : String(max);
+            this.input.value = String(min);
             publish(PUB_SUB_EVENTS.quantityUpdate, undefined);
         }
         fetchQuantityRules() {

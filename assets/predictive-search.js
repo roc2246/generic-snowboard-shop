@@ -1,5 +1,3 @@
-"use strict";
-// @ts-nocheck
 class PredictiveSearch extends SearchForm {
     constructor() {
         super();
@@ -143,10 +141,10 @@ class PredictiveSearch extends SearchForm {
         if (activeElementIndex === selectedElementIndex)
             return;
         const activeElement = allVisibleElements[activeElementIndex];
-        activeElement.setAttribute('aria-selected', true);
+        activeElement.setAttribute('aria-selected', String(true));
         if (selectedElement)
-            selectedElement.setAttribute('aria-selected', false);
-        this.input.setAttribute('aria-activedescendant', activeElement.id);
+            selectedElement.setAttribute('aria-selected', String(false));
+        this.input.setAttribute('aria-activedescendant', String(activeElement.id));
     }
     selectOption() {
         const selectedOption = this.querySelector('[aria-selected="true"] a, button[aria-selected="true"]');
@@ -163,7 +161,7 @@ class PredictiveSearch extends SearchForm {
         fetch(`${routes.predictive_search_url}?q=${encodeURIComponent(searchTerm)}&section_id=predictive-search`, { signal: this.abortController.signal })
             .then((response) => {
             if (!response.ok) {
-                var error = new Error(response.status);
+                var error = new Error(String(response.status));
                 this.close();
                 throw error;
             }
@@ -190,7 +188,7 @@ class PredictiveSearch extends SearchForm {
         this.statusElement = this.statusElement || this.querySelector('.predictive-search-status');
         this.loadingText = this.loadingText || this.getAttribute('data-loading-text');
         this.setLiveRegionText(this.loadingText);
-        this.setAttribute('loading', true);
+        this.setAttribute('loading', String(true));
     }
     setLiveRegionText(statusText) {
         this.statusElement.setAttribute('aria-hidden', 'false');
@@ -201,7 +199,7 @@ class PredictiveSearch extends SearchForm {
     }
     renderSearchResults(resultsMarkup) {
         this.predictiveSearchResults.innerHTML = resultsMarkup;
-        this.setAttribute('results', true);
+        this.setAttribute('results', String(true));
         this.setLiveRegionResults();
         this.open();
     }
@@ -214,9 +212,9 @@ class PredictiveSearch extends SearchForm {
         return this.resultsMaxHeight;
     }
     open() {
-        this.predictiveSearchResults.style.maxHeight = this.resultsMaxHeight || `${this.getResultsMaxHeight()}px`;
-        this.setAttribute('open', true);
-        this.input.setAttribute('aria-expanded', true);
+        this.predictiveSearchResults.style.maxHeight = typeof this.resultsMaxHeight === 'number' ? `${this.resultsMaxHeight}px` : `${this.getResultsMaxHeight()}px`;
+        this.setAttribute('open', String(true));
+        this.input.setAttribute('aria-expanded', String(true));
         this.isOpen = true;
     }
     close(clearSearchTerm = false) {
@@ -230,11 +228,11 @@ class PredictiveSearch extends SearchForm {
         }
         const selected = this.querySelector('[aria-selected="true"]');
         if (selected)
-            selected.setAttribute('aria-selected', false);
+            selected.setAttribute('aria-selected', String(false));
         this.input.setAttribute('aria-activedescendant', '');
         this.removeAttribute('loading');
         this.removeAttribute('open');
-        this.input.setAttribute('aria-expanded', false);
+        this.input.setAttribute('aria-expanded', String(false));
         this.resultsMaxHeight = false;
         this.predictiveSearchResults.removeAttribute('style');
     }

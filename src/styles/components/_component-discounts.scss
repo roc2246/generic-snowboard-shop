@@ -1,3 +1,5 @@
+@use 'abstracts' as a;
+
 .discounts {
   font-size: 1.2rem;
 }
@@ -16,14 +18,14 @@
   justify-content: center;
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   .discounts__discount--position {
     justify-content: flex-end;
   }
 }
 
 .discounts__discount > .icon {
-  color: rgb(var(--color-foreground));
+  color: a.theme-color(foreground);
   width: 1.2rem;
   height: 1.2rem;
   margin-right: 0.7rem;

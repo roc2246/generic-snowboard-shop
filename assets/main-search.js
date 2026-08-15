@@ -1,5 +1,3 @@
-"use strict";
-// @ts-nocheck
 class MainSearch extends SearchForm {
     constructor() {
         super();

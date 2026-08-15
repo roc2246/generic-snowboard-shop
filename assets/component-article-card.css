@@ -3,7 +3,6 @@
     width: 100%;
   }
 }
-
 .article {
   display: flex;
   align-items: center;
@@ -87,7 +86,6 @@
     margin-right: 4rem;
   }
 }
-
 .article-card__image--small .ratio::before {
   padding-bottom: 11rem;
 }
@@ -104,36 +102,29 @@
   .article-card__image--small .ratio::before {
     padding-bottom: 14.3rem;
   }
-
   .article-card__image--medium .ratio::before {
     padding-bottom: 21.9rem;
   }
-
   .article-card__image--large .ratio::before {
     padding-bottom: 27.5rem;
   }
 }
-
 @media screen and (min-width: 990px) {
   .article-card__image--small .ratio::before {
     padding-bottom: 17.7rem;
   }
-
   .article-card__image--medium .ratio::before {
     padding-bottom: 30.7rem;
   }
-
   .article-card__image--large .ratio::before {
     padding-bottom: 40.7rem;
   }
 }
-
 /* check for flexbox gap in older Safari versions */
 @supports not (inset: 10px) {
   .articles-wrapper.grid {
     margin: 0 0 5rem 0;
   }
-
   @media screen and (min-width: 750px) {
     .articles-wrapper.grid {
       margin-bottom: 7rem;

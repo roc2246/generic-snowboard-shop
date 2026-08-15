@@ -1,16 +1,14 @@
-"use strict";
-// @ts-nocheck
 function getFocusableElements(container) {
     return Array.from(container.querySelectorAll("summary, a[href], button:enabled, [tabindex]:not([tabindex^='-']), [draggable], area, input:not([type=hidden]):enabled, select:enabled, textarea:enabled, object, iframe"));
 }
 document.querySelectorAll('[id^="Details-"] summary').forEach((summary) => {
     summary.setAttribute('role', 'button');
-    summary.setAttribute('aria-expanded', summary.parentNode.hasAttribute('open'));
+    summary.setAttribute('aria-expanded', String(summary.parentElement.hasAttribute('open')));
     if (summary.nextElementSibling.getAttribute('id')) {
-        summary.setAttribute('aria-controls', summary.nextElementSibling.id);
+        summary.setAttribute('aria-controls', String(summary.nextElementSibling.id));
     }
     summary.addEventListener('click', (event) => {
-        event.currentTarget.setAttribute('aria-expanded', !event.currentTarget.closest('details').hasAttribute('open'));
+        event.currentTarget.setAttribute('aria-expanded', String(!event.currentTarget.closest('details')?.hasAttribute('open')));
     });
     if (summary.closest('header-drawer'))
         return;
@@ -27,28 +25,33 @@ function trapFocus(container, elementToFocus = container) {
             event.target !== last &&
             event.target !== first)
             return;
-        document.addEventListener('keydown', trapFocusHandlers.keydown);
+        if (trapFocusHandlers.keydown)
+            document.addEventListener('keydown', trapFocusHandlers.keydown);
     };
     trapFocusHandlers.focusout = function () {
-        document.removeEventListener('keydown', trapFocusHandlers.keydown);
+        if (trapFocusHandlers.keydown)
+            document.removeEventListener('keydown', trapFocusHandlers.keydown);
     };
     trapFocusHandlers.keydown = function (event) {
-        if (event.code.toUpperCase() !== 'TAB')
+        const keyboardEvent = event;
+        if (keyboardEvent.code.toUpperCase() !== 'TAB')
             return; // If not TAB key
         // On the last focusable element and tab forward, focus the first element.
-        if (event.target === last && !event.shiftKey) {
+        if (event.target === last && !keyboardEvent.shiftKey) {
             event.preventDefault();
             first.focus();
         }
         //  On the first focusable element and tab backward, focus the last element.
         if ((event.target === container || event.target === first) &&
-            event.shiftKey) {
+            keyboardEvent.shiftKey) {
             event.preventDefault();
             last.focus();
         }
     };
-    document.addEventListener('focusout', trapFocusHandlers.focusout);
-    document.addEventListener('focusin', trapFocusHandlers.focusin);
+    if (trapFocusHandlers.focusout)
+        document.addEventListener('focusout', trapFocusHandlers.focusout);
+    if (trapFocusHandlers.focusin)
+        document.addEventListener('focusin', trapFocusHandlers.focusin);
     elementToFocus.focus();
     if (elementToFocus.tagName === 'INPUT' &&
         ['search', 'text', 'email', 'url'].includes(elementToFocus.type) &&
@@ -98,9 +101,12 @@ function pauseAllMedia() {
     });
 }
 function removeTrapFocus(elementToFocus = null) {
-    document.removeEventListener('focusin', trapFocusHandlers.focusin);
-    document.removeEventListener('focusout', trapFocusHandlers.focusout);
-    document.removeEventListener('keydown', trapFocusHandlers.keydown);
+    if (trapFocusHandlers.focusin)
+        document.removeEventListener('focusin', trapFocusHandlers.focusin);
+    if (trapFocusHandlers.focusout)
+        document.removeEventListener('focusout', trapFocusHandlers.focusout);
+    if (trapFocusHandlers.keydown)
+        document.removeEventListener('keydown', trapFocusHandlers.keydown);
     if (elementToFocus)
         elementToFocus.focus();
 }
@@ -112,7 +118,7 @@ function onKeyUpEscape(event) {
         return;
     const summaryElement = openDetailsElement.querySelector('summary');
     openDetailsElement.removeAttribute('open');
-    summaryElement.setAttribute('aria-expanded', false);
+    summaryElement.setAttribute('aria-expanded', String(false));
     summaryElement.focus();
 }
 class QuantityInput extends HTMLElement {
@@ -234,8 +240,8 @@ Shopify.CountryProvinceSelector.prototype = {
         }
     },
     countryHandler: function (e) {
-        var opt = this.countryEl.options[this.countryEl.selectedIndex];
-        var raw = opt.getAttribute('data-provinces');
+        const selectedOption = this.countryEl.options[this.countryEl.selectedIndex];
+        var raw = selectedOption.getAttribute('data-provinces');
         var provinces = JSON.parse(raw);
         this.clearOptions(this.provinceEl);
         if (provinces && provinces.length == 0) {
@@ -306,7 +312,7 @@ class MenuDrawer extends HTMLElement {
         else {
             setTimeout(() => {
                 detailsElement.classList.add('menu-opening');
-                summaryElement.setAttribute('aria-expanded', true);
+                summaryElement.setAttribute('aria-expanded', String(true));
                 parentMenuElement && parentMenuElement.classList.add('submenu-open');
                 !reducedMotion || reducedMotion.matches ? addTrapFocus() : summaryElement.nextElementSibling.addEventListener('transitionend', addTrapFocus);
             }, 100);
@@ -316,7 +322,7 @@ class MenuDrawer extends HTMLElement {
         setTimeout(() => {
             this.mainDetailsToggle.classList.add('menu-opening');
         });
-        summaryElement.setAttribute('aria-expanded', true);
+        summaryElement.setAttribute('aria-expanded', String(true));
         trapFocus(this.mainDetailsToggle, summaryElement);
         document.body.classList.add(`overflow-hidden-${this.dataset.breakpoint}`);
     }
@@ -338,7 +344,7 @@ class MenuDrawer extends HTMLElement {
     onFocusOut() {
         setTimeout(() => {
             if (this.mainDetailsToggle.hasAttribute('open') && !this.mainDetailsToggle.contains(document.activeElement))
-                this.closeMenuDrawer();
+                this.closeMenuDrawer(undefined, this.mainDetailsToggle.querySelector('summary'));
         });
     }
     onCloseButtonClick(event) {
@@ -349,7 +355,7 @@ class MenuDrawer extends HTMLElement {
         const parentMenuElement = detailsElement.closest('.submenu-open');
         parentMenuElement && parentMenuElement.classList.remove('submenu-open');
         detailsElement.classList.remove('menu-opening');
-        detailsElement.querySelector('summary').setAttribute('aria-expanded', false);
+        detailsElement.querySelector('summary').setAttribute('aria-expanded', String(false));
         removeTrapFocus(detailsElement.querySelector('summary'));
         this.closeAnimation(detailsElement);
     }
@@ -378,19 +384,19 @@ class HeaderDrawer extends MenuDrawer {
     constructor() {
         super();
         this.onResize = () => {
-            this.header && document.documentElement.style.setProperty('--header-bottom-position', `${parseInt(this.header.getBoundingClientRect().bottom - this.borderOffset)}px`);
+            this.header && document.documentElement.style.setProperty('--header-bottom-position', `${Math.trunc(this.header.getBoundingClientRect().bottom - this.borderOffset)}px`);
             document.documentElement.style.setProperty('--viewport-height', `${window.innerHeight}px`);
         };
     }
     openMenuDrawer(summaryElement) {
         this.header = this.header || document.querySelector('.section-header');
         this.borderOffset = this.borderOffset || this.closest('.header-wrapper').classList.contains('header-wrapper--border-bottom') ? 1 : 0;
-        document.documentElement.style.setProperty('--header-bottom-position', `${parseInt(this.header.getBoundingClientRect().bottom - this.borderOffset)}px`);
+        document.documentElement.style.setProperty('--header-bottom-position', `${Math.trunc(this.header.getBoundingClientRect().bottom - this.borderOffset)}px`);
         this.header.classList.add('menu-open');
         setTimeout(() => {
             this.mainDetailsToggle.classList.add('menu-opening');
         });
-        summaryElement.setAttribute('aria-expanded', true);
+        summaryElement.setAttribute('aria-expanded', String(true));
         window.addEventListener('resize', this.onResize);
         trapFocus(this.mainDetailsToggle, summaryElement);
         document.body.classList.add(`overflow-hidden-${this.dataset.breakpoint}`);
@@ -477,7 +483,7 @@ class DeferredMedia extends HTMLElement {
         if (!this.getAttribute('loaded')) {
             const content = document.createElement('div');
             content.appendChild(this.querySelector('template').content.firstElementChild.cloneNode(true));
-            this.setAttribute('loaded', true);
+            this.setAttribute('loaded', String(true));
             const deferredElement = this.appendChild(content.querySelector('video, model-viewer, iframe'));
             if (focus)
                 deferredElement.focus();
@@ -529,8 +535,8 @@ class SliderComponent extends HTMLElement {
         const previousPage = this.currentPage;
         this.currentPage = Math.round(this.slider.scrollLeft / this.sliderItemOffset) + 1;
         if (this.currentPageElement && this.pageTotalElement) {
-            this.currentPageElement.textContent = this.currentPage;
-            this.pageTotalElement.textContent = this.totalPages;
+            this.currentPageElement.textContent = String(this.currentPage);
+            this.pageTotalElement.textContent = String(this.totalPages);
         }
         if (this.currentPage != previousPage) {
             this.dispatchEvent(new CustomEvent('slideChanged', { detail: {
@@ -586,7 +592,7 @@ class SlideshowComponent extends SliderComponent {
     }
     setAutoPlay() {
         this.sliderAutoplayButton = this.querySelector('.slideshow__autoplay');
-        this.autoplaySpeed = this.slider.dataset.speed * 1000;
+        this.autoplaySpeed = Number(this.slider.dataset.speed) * 1000;
         this.sliderAutoplayButton.addEventListener('click', this.autoPlayToggle.bind(this));
         this.addEventListener('mouseover', this.focusInHandling.bind(this));
         this.addEventListener('mouseleave', this.focusOutHandling.bind(this));
@@ -622,7 +628,7 @@ class SlideshowComponent extends SliderComponent {
             link.removeAttribute('aria-current');
         });
         this.sliderControlButtons[this.currentPage - 1].classList.add('slider-counter__link--active');
-        this.sliderControlButtons[this.currentPage - 1].setAttribute('aria-current', true);
+        this.sliderControlButtons[this.currentPage - 1].setAttribute('aria-current', String(true));
     }
     autoPlayToggle() {
         this.togglePlayButtonState(this.autoplayButtonIsSetToPlay);
@@ -656,11 +662,11 @@ class SlideshowComponent extends SliderComponent {
     togglePlayButtonState(pauseAutoplay) {
         if (pauseAutoplay) {
             this.sliderAutoplayButton.classList.add('slideshow__autoplay--paused');
-            this.sliderAutoplayButton.setAttribute('aria-label', window.accessibilityStrings.playSlideshow);
+            this.sliderAutoplayButton.setAttribute('aria-label', String(window.accessibilityStrings.playSlideshow));
         }
         else {
             this.sliderAutoplayButton.classList.remove('slideshow__autoplay--paused');
-            this.sliderAutoplayButton.setAttribute('aria-label', window.accessibilityStrings.pauseSlideshow);
+            this.sliderAutoplayButton.setAttribute('aria-label', String(window.accessibilityStrings.pauseSlideshow));
         }
     }
     autoRotateSlides() {

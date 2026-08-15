@@ -1,6 +1,7 @@
-// @ts-nocheck
 if (!customElements.get('localization-form')) {
   customElements.define('localization-form', class LocalizationForm extends HTMLElement {
+  declare elements: Record<string, any>;
+
     constructor() {
       super();
       this.elements = {

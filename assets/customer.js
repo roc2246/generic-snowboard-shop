@@ -1,5 +1,3 @@
-"use strict";
-// @ts-nocheck
 const selectors = {
     customerAddresses: '[data-customer-addresses]',
     addressCountrySelect: '[data-address-country-select]',

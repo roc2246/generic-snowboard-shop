@@ -1,5 +1,3 @@
-"use strict";
-// @ts-nocheck
 class FacetFiltersForm extends HTMLElement {
     constructor() {
         super();
@@ -174,7 +172,7 @@ class FacetFiltersForm extends HTMLElement {
         event.preventDefault();
         FacetFiltersForm.toggleActiveFacets();
         const url = event.currentTarget.href.indexOf('?') == -1 ? '' : event.currentTarget.href.slice(event.currentTarget.href.indexOf('?') + 1);
-        FacetFiltersForm.renderPage(url);
+        FacetFiltersForm.renderPage(url, undefined);
     }
 }
 FacetFiltersForm.filterData = [];
@@ -202,7 +200,7 @@ class PriceRange extends HTMLElement {
         if (minInput.value)
             maxInput.setAttribute('min', minInput.value);
         if (minInput.value === '')
-            maxInput.setAttribute('min', 0);
+            maxInput.setAttribute('min', '0');
         if (maxInput.value === '')
             minInput.setAttribute('max', maxInput.getAttribute('max'));
     }

@@ -1,5 +1,3 @@
-"use strict";
-// @ts-nocheck
 if (!customElements.get('product-form')) {
     customElements.define('product-form', class ProductForm extends HTMLElement {
         constructor() {
@@ -18,7 +16,7 @@ if (!customElements.get('product-form')) {
             if (this.submitButton.getAttribute('aria-disabled') === 'true')
                 return;
             this.handleErrorMessage();
-            this.submitButton.setAttribute('aria-disabled', true);
+            this.submitButton.setAttribute('aria-disabled', 'true');
             this.submitButton.classList.add('loading');
             this.querySelector('.loading-overlay__spinner').classList.remove('hidden');
             const config = fetchConfig('javascript');
@@ -43,14 +41,14 @@ if (!customElements.get('product-form')) {
                     const soldOutMessage = this.submitButton.querySelector('.sold-out-message');
                     if (!soldOutMessage)
                         return;
-                    this.submitButton.setAttribute('aria-disabled', true);
+                    this.submitButton.setAttribute('aria-disabled', 'true');
                     this.submitButton.querySelector('span').classList.add('hidden');
                     soldOutMessage.classList.remove('hidden');
                     this.error = true;
                     return;
                 }
                 else if (!this.cart) {
-                    window.location = window.routes.cart_url;
+                    window.location.assign(window.routes.cart_url);
                     return;
                 }
                 if (!this.error)
@@ -86,7 +84,7 @@ if (!customElements.get('product-form')) {
             if (!this.errorMessageWrapper)
                 return;
             this.errorMessage = this.errorMessage || this.errorMessageWrapper.querySelector('.product-form__error-message');
-            this.errorMessageWrapper.toggleAttribute('hidden', !errorMessage);
+            this.errorMessageWrapper.toggleAttribute('hidden', !Boolean(errorMessage));
             if (errorMessage) {
                 this.errorMessage.textContent = errorMessage;
             }

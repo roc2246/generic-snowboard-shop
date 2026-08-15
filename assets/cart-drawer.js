@@ -1,5 +1,3 @@
-"use strict";
-// @ts-nocheck
 class CartDrawer extends HTMLElement {
     constructor() {
         super();
@@ -63,7 +61,7 @@ class CartDrawer extends HTMLElement {
         }));
         setTimeout(() => {
             this.querySelector('#CartDrawer-Overlay').addEventListener('click', this.close.bind(this));
-            this.open();
+            this.open(undefined);
         });
     }
     getSectionInnerHTML(html, selector = '.shopify-section') {

@@ -1,6 +1,11 @@
-// @ts-nocheck
 if (!customElements.get('product-info')) {
   customElements.define('product-info', class ProductInfo extends HTMLElement {
+  declare currentVariant: any;
+  declare input: HTMLInputElement;
+  declare quantityForm: HTMLElement | null;
+  declare submitButton: HTMLButtonElement;
+  declare variantSelects: any;
+
     constructor() {
       super();
       this.input = this.querySelector('.quantity__input');
@@ -50,9 +55,9 @@ if (!customElements.get('product-info')) {
       if (max !== null) min = Math.min(min, max);
       if (data.cartQuantity >= data.min) min = Math.min(min, data.step);
 
-      this.input.min = min;
-      this.input.max = max;
-      this.input.value = min;
+      this.input.min = String(min);
+      this.input.max = max === null ? '' : String(max);
+      this.input.value = String(min);
       publish(PUB_SUB_EVENTS.quantityUpdate, undefined);  
     }
 

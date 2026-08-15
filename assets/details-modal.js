@@ -1,5 +1,3 @@
-"use strict";
-// @ts-nocheck
 class DetailsModal extends HTMLElement {
     constructor() {
         super();

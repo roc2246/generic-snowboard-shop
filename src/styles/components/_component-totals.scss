@@ -1,3 +1,5 @@
+@use 'abstracts' as a;
+
 .totals {
   display: flex;
   justify-content: center;
@@ -29,7 +31,7 @@
   margin-top: 2rem;
 }
 
-@media all and (min-width: 750px) {
+@include a.media-up(tablet) {
   .totals {
     justify-content: flex-end;
   }

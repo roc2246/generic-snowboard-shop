@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noEmit": true
+  },
+  "include": [
+    "src/scripts/types/**/*.d.ts",
+    "src/scripts/constants.ts",
+    "src/scripts/pubsub.ts",
+    "src/scripts/custom/**/*.ts"
+  ]
+}

@@ -1,6 +1,8 @@
-// @ts-nocheck
 if (!customElements.get('pickup-availability')) {
   customElements.define('pickup-availability', class PickupAvailability extends HTMLElement {
+  declare errorHtml: Node;
+  
+
     constructor() {
       super();
 
@@ -68,6 +70,9 @@ if (!customElements.get('pickup-availability')) {
 
 if (!customElements.get('pickup-availability-drawer')) {
   customElements.define('pickup-availability-drawer', class PickupAvailabilityDrawer extends HTMLElement {
+  declare focusElement: HTMLElement | null;
+  declare onBodyClick: EventListener;
+
     constructor() {
       super();
 

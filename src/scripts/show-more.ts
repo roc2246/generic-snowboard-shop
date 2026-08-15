@@ -1,4 +1,3 @@
-// @ts-nocheck
 class ShowMoreButton extends HTMLElement {
   constructor() {
     super();

@@ -48,6 +48,23 @@ This performs:
 - SCSS source -> flat Shopify CSS assets
 - TypeScript source -> Shopify JavaScript assets
 
+
+## SCSS quality checks
+
+```bash
+npm run check:styles
+```
+
+This compiles every SCSS entry point without writing output, then validates the source architecture: unique Shopify output names, shared Sass module usage, centralized standard breakpoints, and use of the theme-color helper for simple color expressions.
+
+For a production/minified CSS build:
+
+```bash
+npm run build:styles:prod
+```
+
+Use `npm run build:styles` during normal development for readable expanded CSS.
+
 ## Type-check
 
 ```bash
@@ -78,3 +95,11 @@ The watchers regenerate the existing Shopify asset filenames, so Liquid asset re
 4. Use `abstracts/` only for build-time Sass helpers; retain merchant/theme tokens as CSS custom properties when appropriate.
 5. Write all new JavaScript functionality in TypeScript without `// @ts-nocheck`.
 6. Gradually type inherited Dawn files only when you are already modifying them.
+
+## TypeScript development
+
+The JavaScript migration is now compiler-backed rather than extension-only. Existing Dawn-derived scripts no longer use `@ts-nocheck`; shared Shopify/Liquid globals and custom-element integration boundaries are declared under `src/scripts/types/`, and pub/sub events use typed payloads.
+
+Write new storefront features under `src/scripts/custom/`. That directory is covered by `tsconfig.strict.json`, so new code must pass full strict TypeScript even though some inherited Dawn code is intentionally checked with a more migration-friendly configuration.
+
+Use `npm run check:types` before committing TypeScript changes and `npm run build:scripts` to regenerate Shopify-ready JavaScript in `assets/`.

@@ -1,6 +1,16 @@
-// @ts-nocheck
 if (!customElements.get('recipient-form')) {
   customElements.define('recipient-form', class RecipientForm extends HTMLElement {
+  declare checkboxInput: any;
+  declare currentProductVariantId: any;
+  declare defaultErrorHeader: any;
+  declare emailInput: any;
+  declare errorMessage: HTMLElement | null;
+  declare errorMessageList: any;
+  declare errorMessageWrapper: HTMLElement | null;
+  declare hiddenControlField: any;
+  declare messageInput: any;
+  declare nameInput: any;
+
     constructor() {
       super();
       this.checkboxInput = this.querySelector(`#Recipient-Checkbox-${ this.dataset.sectionId }`);

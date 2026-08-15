@@ -1,4 +1,5 @@
-// @ts-nocheck
+let overlay: HTMLDivElement;
+
 // create a container and set the full-size image as its background
 function createOverlay(image) {
   const overlayImage = document.createElement('img');

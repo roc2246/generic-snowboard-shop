@@ -1,6 +1,8 @@
-// @ts-nocheck
 if (!customElements.get('share-button')) {
   customElements.define('share-button', class ShareButton extends DetailsDisclosure {
+  declare elements: Record<string, any>;
+  declare urlToShare: any;
+
     constructor() {
       super();
 

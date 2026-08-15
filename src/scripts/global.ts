@@ -1,7 +1,6 @@
-// @ts-nocheck
-function getFocusableElements(container) {
+function getFocusableElements(container: ParentNode): HTMLElement[] {
   return Array.from(
-    container.querySelectorAll(
+    container.querySelectorAll<HTMLElement>(
       "summary, a[href], button:enabled, [tabindex]:not([tabindex^='-']), [draggable], area, input:not([type=hidden]):enabled, select:enabled, textarea:enabled, object, iframe"
     )
   );
@@ -9,21 +8,21 @@ function getFocusableElements(container) {
 
 document.querySelectorAll('[id^="Details-"] summary').forEach((summary) => {
   summary.setAttribute('role', 'button');
-  summary.setAttribute('aria-expanded', summary.parentNode.hasAttribute('open'));
+  summary.setAttribute('aria-expanded', String((summary.parentElement as HTMLElement).hasAttribute('open')));
 
   if(summary.nextElementSibling.getAttribute('id')) {
-    summary.setAttribute('aria-controls', summary.nextElementSibling.id);
+    summary.setAttribute('aria-controls', String(summary.nextElementSibling.id));
   }
 
   summary.addEventListener('click', (event) => {
-    event.currentTarget.setAttribute('aria-expanded', !event.currentTarget.closest('details').hasAttribute('open'));
+    (event.currentTarget as HTMLElement).setAttribute('aria-expanded', String(!(event.currentTarget as HTMLElement).closest('details')?.hasAttribute('open')));
   });
 
   if (summary.closest('header-drawer')) return;
   summary.parentElement.addEventListener('keyup', onKeyUpEscape);
 });
 
-const trapFocusHandlers = {};
+const trapFocusHandlers: { focusin?: EventListener; focusout?: EventListener; keydown?: EventListener } = {};
 
 function trapFocus(container, elementToFocus = container) {
   var elements = getFocusableElements(container);
@@ -40,17 +39,18 @@ function trapFocus(container, elementToFocus = container) {
     )
       return;
 
-    document.addEventListener('keydown', trapFocusHandlers.keydown);
+    if (trapFocusHandlers.keydown) document.addEventListener('keydown', trapFocusHandlers.keydown);
   };
 
   trapFocusHandlers.focusout = function() {
-    document.removeEventListener('keydown', trapFocusHandlers.keydown);
+    if (trapFocusHandlers.keydown) document.removeEventListener('keydown', trapFocusHandlers.keydown);
   };
 
-  trapFocusHandlers.keydown = function(event) {
-    if (event.code.toUpperCase() !== 'TAB') return; // If not TAB key
+  trapFocusHandlers.keydown = function(event: Event) {
+    const keyboardEvent = event as KeyboardEvent;
+    if (keyboardEvent.code.toUpperCase() !== 'TAB') return; // If not TAB key
     // On the last focusable element and tab forward, focus the first element.
-    if (event.target === last && !event.shiftKey) {
+    if (event.target === last && !keyboardEvent.shiftKey) {
       event.preventDefault();
       first.focus();
     }
@@ -58,15 +58,15 @@ function trapFocus(container, elementToFocus = container) {
     //  On the first focusable element and tab backward, focus the last element.
     if (
       (event.target === container || event.target === first) &&
-      event.shiftKey
+      keyboardEvent.shiftKey
     ) {
       event.preventDefault();
       last.focus();
     }
   };
 
-  document.addEventListener('focusout', trapFocusHandlers.focusout);
-  document.addEventListener('focusin', trapFocusHandlers.focusin);
+  if (trapFocusHandlers.focusout) document.addEventListener('focusout', trapFocusHandlers.focusout);
+  if (trapFocusHandlers.focusin) document.addEventListener('focusin', trapFocusHandlers.focusin);
 
   elementToFocus.focus();
 
@@ -111,10 +111,10 @@ function focusVisiblePolyfill() {
 }
 
 function pauseAllMedia() {
-  document.querySelectorAll('.js-youtube').forEach((video) => {
+  document.querySelectorAll<HTMLIFrameElement>('.js-youtube').forEach((video) => {
     video.contentWindow.postMessage('{"event":"command","func":"' + 'pauseVideo' + '","args":""}', '*');
   });
-  document.querySelectorAll('.js-vimeo').forEach((video) => {
+  document.querySelectorAll<HTMLIFrameElement>('.js-vimeo').forEach((video) => {
     video.contentWindow.postMessage('{"method":"pause"}', '*');
   });
   document.querySelectorAll('video').forEach((video) => video.pause());
@@ -124,9 +124,9 @@ function pauseAllMedia() {
 }
 
 function removeTrapFocus(elementToFocus = null) {
-  document.removeEventListener('focusin', trapFocusHandlers.focusin);
-  document.removeEventListener('focusout', trapFocusHandlers.focusout);
-  document.removeEventListener('keydown', trapFocusHandlers.keydown);
+  if (trapFocusHandlers.focusin) document.removeEventListener('focusin', trapFocusHandlers.focusin);
+  if (trapFocusHandlers.focusout) document.removeEventListener('focusout', trapFocusHandlers.focusout);
+  if (trapFocusHandlers.keydown) document.removeEventListener('keydown', trapFocusHandlers.keydown);
 
   if (elementToFocus) elementToFocus.focus();
 }
@@ -139,11 +139,14 @@ function onKeyUpEscape(event) {
 
   const summaryElement = openDetailsElement.querySelector('summary');
   openDetailsElement.removeAttribute('open');
-  summaryElement.setAttribute('aria-expanded', false);
+  summaryElement.setAttribute('aria-expanded', String(false));
   summaryElement.focus();
 }
 
 class QuantityInput extends HTMLElement {
+  declare changeEvent: Event;
+  declare input: HTMLInputElement;
+
   constructor() {
     super();
     this.input = this.querySelector('input');
@@ -287,8 +290,8 @@ Shopify.CountryProvinceSelector.prototype = {
   },
 
   countryHandler: function(e) {
-    var opt       = this.countryEl.options[this.countryEl.selectedIndex];
-    var raw       = opt.getAttribute('data-provinces');
+    const selectedOption = this.countryEl.options[this.countryEl.selectedIndex];
+    var raw       = selectedOption.getAttribute('data-provinces');
     var provinces = JSON.parse(raw);
 
     this.clearOptions(this.provinceEl);
@@ -323,6 +326,8 @@ Shopify.CountryProvinceSelector.prototype = {
 };
 
 class MenuDrawer extends HTMLElement {
+  declare mainDetailsToggle: HTMLDetailsElement;
+
   constructor() {
     super();
 
@@ -369,7 +374,7 @@ class MenuDrawer extends HTMLElement {
     } else {
       setTimeout(() => {
         detailsElement.classList.add('menu-opening');
-        summaryElement.setAttribute('aria-expanded', true);
+        summaryElement.setAttribute('aria-expanded', String(true));
         parentMenuElement && parentMenuElement.classList.add('submenu-open');
         !reducedMotion || reducedMotion.matches ? addTrapFocus() : summaryElement.nextElementSibling.addEventListener('transitionend', addTrapFocus);
       }, 100);
@@ -380,12 +385,12 @@ class MenuDrawer extends HTMLElement {
     setTimeout(() => {
       this.mainDetailsToggle.classList.add('menu-opening');
     });
-    summaryElement.setAttribute('aria-expanded', true);
+    summaryElement.setAttribute('aria-expanded', String(true));
     trapFocus(this.mainDetailsToggle, summaryElement);
     document.body.classList.add(`overflow-hidden-${this.dataset.breakpoint}`);
   }
 
-  closeMenuDrawer(event, elementToFocus = false) {
+  closeMenuDrawer(event: Event | undefined, elementToFocus: HTMLElement | false = false) {
     if (event === undefined) return;
 
     this.mainDetailsToggle.classList.remove('menu-opening');
@@ -403,7 +408,7 @@ class MenuDrawer extends HTMLElement {
 
   onFocusOut() {
     setTimeout(() => {
-      if (this.mainDetailsToggle.hasAttribute('open') && !this.mainDetailsToggle.contains(document.activeElement)) this.closeMenuDrawer();
+      if (this.mainDetailsToggle.hasAttribute('open') && !this.mainDetailsToggle.contains(document.activeElement)) this.closeMenuDrawer(undefined, this.mainDetailsToggle.querySelector('summary'));
     });
   }
 
@@ -416,7 +421,7 @@ class MenuDrawer extends HTMLElement {
     const parentMenuElement = detailsElement.closest('.submenu-open');
     parentMenuElement && parentMenuElement.classList.remove('submenu-open');
     detailsElement.classList.remove('menu-opening');
-    detailsElement.querySelector('summary').setAttribute('aria-expanded', false);
+    detailsElement.querySelector('summary').setAttribute('aria-expanded', String(false));
     removeTrapFocus(detailsElement.querySelector('summary'));
     this.closeAnimation(detailsElement);
   }
@@ -448,6 +453,9 @@ class MenuDrawer extends HTMLElement {
 customElements.define('menu-drawer', MenuDrawer);
 
 class HeaderDrawer extends MenuDrawer {
+  declare borderOffset: number;
+  declare header: HTMLElement | null;
+
   constructor() {
     super();
   }
@@ -455,14 +463,14 @@ class HeaderDrawer extends MenuDrawer {
   openMenuDrawer(summaryElement) {
     this.header = this.header || document.querySelector('.section-header');
     this.borderOffset = this.borderOffset || this.closest('.header-wrapper').classList.contains('header-wrapper--border-bottom') ? 1 : 0;
-    document.documentElement.style.setProperty('--header-bottom-position', `${parseInt(this.header.getBoundingClientRect().bottom - this.borderOffset)}px`);
+    document.documentElement.style.setProperty('--header-bottom-position', `${Math.trunc(this.header.getBoundingClientRect().bottom - this.borderOffset)}px`);
     this.header.classList.add('menu-open');
 
     setTimeout(() => {
       this.mainDetailsToggle.classList.add('menu-opening');
     });
 
-    summaryElement.setAttribute('aria-expanded', true);
+    summaryElement.setAttribute('aria-expanded', String(true));
     window.addEventListener('resize', this.onResize);
     trapFocus(this.mainDetailsToggle, summaryElement);
     document.body.classList.add(`overflow-hidden-${this.dataset.breakpoint}`);
@@ -476,7 +484,7 @@ class HeaderDrawer extends MenuDrawer {
   }
 
   onResize = () => {
-    this.header && document.documentElement.style.setProperty('--header-bottom-position', `${parseInt(this.header.getBoundingClientRect().bottom - this.borderOffset)}px`);
+    this.header && document.documentElement.style.setProperty('--header-bottom-position', `${Math.trunc(this.header.getBoundingClientRect().bottom - this.borderOffset)}px`);
     document.documentElement.style.setProperty('--viewport-height', `${window.innerHeight}px`);
   };
 }
@@ -484,6 +492,9 @@ class HeaderDrawer extends MenuDrawer {
 customElements.define('header-drawer', HeaderDrawer);
 
 class ModalDialog extends HTMLElement {
+  declare moved: boolean;
+  declare openedBy: HTMLElement | null;
+
   constructor() {
     super();
     this.querySelector('[id^="ModalClose-"]').addEventListener(
@@ -559,7 +570,7 @@ class DeferredMedia extends HTMLElement {
       const content = document.createElement('div');
       content.appendChild(this.querySelector('template').content.firstElementChild.cloneNode(true));
 
-      this.setAttribute('loaded', true);
+      this.setAttribute('loaded', String(true));
       const deferredElement = this.appendChild(content.querySelector('video, model-viewer, iframe'));
       if (focus) deferredElement.focus();
       if (deferredElement.nodeName == 'VIDEO' && deferredElement.getAttribute('autoplay')) {
@@ -573,6 +584,20 @@ class DeferredMedia extends HTMLElement {
 customElements.define('deferred-media', DeferredMedia);
 
 class SliderComponent extends HTMLElement {
+  declare currentPage: number;
+  declare currentPageElement: HTMLElement | null;
+  declare enableSliderLooping: boolean;
+  declare nextButton: HTMLButtonElement | null;
+  declare pageTotalElement: HTMLElement | null;
+  declare prevButton: HTMLButtonElement | null;
+  declare slideScrollPosition: number;
+  declare slider: HTMLElement;
+  declare sliderItemOffset: number;
+  declare sliderItems: NodeListOf<HTMLElement>;
+  declare sliderItemsToShow: HTMLElement[];
+  declare slidesPerPage: number;
+  declare totalPages: number;
+
   constructor() {
     super();
     this.slider = this.querySelector('[id^="Slider-"]');
@@ -595,7 +620,7 @@ class SliderComponent extends HTMLElement {
   }
 
   initPages() {
-    this.sliderItemsToShow = Array.from(this.sliderItems).filter(element => element.clientWidth > 0);
+    this.sliderItemsToShow = Array.from(this.sliderItems as NodeListOf<HTMLElement>).filter(element => element.clientWidth > 0);
     if (this.sliderItemsToShow.length < 2) return;
     this.sliderItemOffset = this.sliderItemsToShow[1].offsetLeft - this.sliderItemsToShow[0].offsetLeft;
     this.slidesPerPage = Math.floor((this.slider.clientWidth - this.sliderItemsToShow[0].offsetLeft) / this.sliderItemOffset);
@@ -617,8 +642,8 @@ class SliderComponent extends HTMLElement {
     this.currentPage = Math.round(this.slider.scrollLeft / this.sliderItemOffset) + 1;
 
     if (this.currentPageElement && this.pageTotalElement) {
-      this.currentPageElement.textContent = this.currentPage;
-      this.pageTotalElement.textContent = this.totalPages;
+      this.currentPageElement.textContent = String(this.currentPage);
+      this.pageTotalElement.textContent = String(this.totalPages);
     }
 
     if (this.currentPage != previousPage) {
@@ -661,6 +686,18 @@ class SliderComponent extends HTMLElement {
 customElements.define('slider-component', SliderComponent);
 
 class SlideshowComponent extends SliderComponent {
+  declare autoplay: ReturnType<typeof setInterval> | undefined;
+  declare autoplayButtonIsSetToPlay: boolean;
+  declare autoplaySpeed: number;
+  declare currentPage: number;
+  declare enableSliderLooping: boolean;
+  declare slideScrollPosition: number;
+  declare sliderAutoplayButton: HTMLButtonElement | null;
+  declare sliderControlButtons: NodeListOf<HTMLButtonElement>;
+  declare sliderControlLinksArray: HTMLElement[];
+  declare sliderControlWrapper: HTMLElement | null;
+  declare sliderFirstItemNode: HTMLElement | null;
+
   constructor() {
     super();
     this.sliderControlWrapper = this.querySelector('.slider-buttons');
@@ -681,7 +718,7 @@ class SlideshowComponent extends SliderComponent {
 
   setAutoPlay() {
     this.sliderAutoplayButton = this.querySelector('.slideshow__autoplay');
-    this.autoplaySpeed = this.slider.dataset.speed * 1000;
+    this.autoplaySpeed = Number(this.slider.dataset.speed) * 1000;
 
     this.sliderAutoplayButton.addEventListener('click', this.autoPlayToggle.bind(this));
     this.addEventListener('mouseover', this.focusInHandling.bind(this));
@@ -722,7 +759,7 @@ class SlideshowComponent extends SliderComponent {
       link.removeAttribute('aria-current');
     });
     this.sliderControlButtons[this.currentPage - 1].classList.add('slider-counter__link--active');
-    this.sliderControlButtons[this.currentPage - 1].setAttribute('aria-current', true);
+    this.sliderControlButtons[this.currentPage - 1].setAttribute('aria-current', String(true));
   }
 
   autoPlayToggle() {
@@ -760,10 +797,10 @@ class SlideshowComponent extends SliderComponent {
   togglePlayButtonState(pauseAutoplay) {
     if (pauseAutoplay) {
       this.sliderAutoplayButton.classList.add('slideshow__autoplay--paused');
-      this.sliderAutoplayButton.setAttribute('aria-label', window.accessibilityStrings.playSlideshow);
+      this.sliderAutoplayButton.setAttribute('aria-label', String(window.accessibilityStrings.playSlideshow));
     } else {
       this.sliderAutoplayButton.classList.remove('slideshow__autoplay--paused');
-      this.sliderAutoplayButton.setAttribute('aria-label', window.accessibilityStrings.pauseSlideshow);
+      this.sliderAutoplayButton.setAttribute('aria-label', String(window.accessibilityStrings.pauseSlideshow));
     }
   }
 
@@ -805,6 +842,10 @@ class SlideshowComponent extends SliderComponent {
 customElements.define('slideshow-component', SlideshowComponent);
 
 class VariantSelects extends HTMLElement {
+  declare currentVariant: any;
+  declare options: any[];
+  declare variantData: any[];
+
   constructor() {
     super();
     this.addEventListener('change', this.onVariantChange);
@@ -1001,6 +1042,8 @@ class VariantSelects extends HTMLElement {
 customElements.define('variant-selects', VariantSelects);
 
 class VariantRadios extends VariantSelects {
+  declare options: any[];
+
   constructor() {
     super();
   }
@@ -1026,6 +1069,8 @@ class VariantRadios extends VariantSelects {
 customElements.define('variant-radios', VariantRadios);
 
 class ProductRecommendations extends HTMLElement {
+  declare innerHTML: string;
+
   constructor() {
     super();
   }

@@ -1,11 +1,13 @@
-@media screen and (max-width: 749px) {
+@use 'abstracts' as a;
+
+@include a.media-down(tablet) {
   .collection .grid__item:only-child {
     flex: 0 0 100%;
     max-width: 100%;
   }
 }
 
-@media screen and (max-width: 989px) {
+@include a.media-down(desktop) {
   .collection .slider.slider--tablet {
     margin-bottom: 1.5rem;
   }
@@ -22,7 +24,7 @@
   opacity: 0.7;
 }
 
-@media screen and (min-width: 750px) {
+@include a.media-up(tablet) {
   .collection .loading-overlay {
     padding-left: 5rem;
     padding-right: 5rem;
@@ -38,7 +40,7 @@
   margin-bottom: 15rem;
 }
 
-@media screen and (max-width: 989px) {
+@include a.media-down(desktop) {
   .collection .slider--tablet.product-grid {
     scroll-padding-left: 1.5rem;
   }
@@ -56,7 +58,7 @@
   margin-bottom: 1rem;
 }
 
-@media screen and (min-width: 990px) {
+@include a.media-up(desktop) {
   .collection__title--desktop-slider .title {
     margin-bottom: 2.5rem;
   }

@@ -1,5 +1,8 @@
-// @ts-nocheck
 class DetailsDisclosure extends HTMLElement {
+  declare animations: Animation[];
+  declare content: Element | null;
+  declare mainDetailsToggle: HTMLDetailsElement;
+
   constructor() {
     super();
     this.mainDetailsToggle = this.querySelector('details');
@@ -27,13 +30,15 @@ class DetailsDisclosure extends HTMLElement {
 
   close() {
     this.mainDetailsToggle.removeAttribute('open');
-    this.mainDetailsToggle.querySelector('summary').setAttribute('aria-expanded', false);
+    this.mainDetailsToggle.querySelector('summary').setAttribute('aria-expanded', 'false');
   }
 }
 
 customElements.define('details-disclosure', DetailsDisclosure);
 
 class HeaderMenu extends DetailsDisclosure {
+  declare header: any;
+
   constructor() {
     super();
     this.header = document.querySelector('.header-wrapper');

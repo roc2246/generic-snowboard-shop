@@ -1,5 +1,3 @@
-"use strict";
-// @ts-nocheck
 class ProductSubscriptions extends HTMLElement {
     constructor() {
         super();
@@ -13,6 +11,9 @@ class ProductSubscriptions extends HTMLElement {
         this.select.addEventListener('change', this.onSelectChange.bind(this));
     }
     onRadioChange(e) {
+        this.input.value = e.target.value;
+    }
+    onSelectChange(e) {
         this.input.value = e.target.value;
     }
     getCurrentSellingPlanId() {

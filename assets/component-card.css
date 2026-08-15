@@ -50,7 +50,7 @@
 
 .card--card:after,
 .card--standard .card__inner:after {
-  content: '';
+  content: "";
   position: absolute;
   z-index: -1;
   width: calc(var(--border-width) * 2 + 100%);
@@ -112,14 +112,14 @@
 
 .card__content {
   display: grid;
-  grid-template-rows: minmax(0,1fr) max-content minmax(0,1fr);
+  grid-template-rows: minmax(0, 1fr) max-content minmax(0, 1fr);
   padding: 1rem;
   width: 100%;
   flex-grow: 1;
 }
 
 .card__content--auto-margins {
-  grid-template-rows: minmax(0,auto) max-content minmax(0,auto);
+  grid-template-rows: minmax(0, auto) max-content minmax(0, auto);
 }
 
 .card__information {
@@ -128,7 +128,7 @@
 }
 
 .card:not(.ratio) > .card__content {
-  grid-template-rows: max-content minmax(0,1fr) max-content auto;
+  grid-template-rows: max-content minmax(0, 1fr) max-content auto;
 }
 
 @media screen and (min-width: 750px) {
@@ -137,7 +137,6 @@
     padding-top: 1.7rem;
   }
 }
-
 .card__badge {
   align-self: flex-end;
   grid-row-start: 3;
@@ -191,14 +190,13 @@
   box-shadow: none;
 }
 
-@media only screen and (min-width: 750px) {
+@media screen and (min-width: 750px) {
   .card--horizontal .card__heading,
   .card--horizontal .price__container .price-item,
   .card--horizontal__quick-add {
     font-size: calc(var(--font-heading-scale) * 1.3rem);
   }
 }
-
 .card--card.card--media > .card__content {
   margin-top: calc(0rem - var(--image-padding));
 }
@@ -250,30 +248,23 @@
   .card-wrapper .media.media--hover-effect > img:only-child {
     transition: transform var(--duration-long) ease;
   }
-
   .card:hover .media.media--hover-effect > img:first-child:only-child,
   .card-wrapper:hover .media.media--hover-effect > img:first-child:only-child {
     transform: scale(1.03);
   }
-
-  .card-wrapper:hover
-    .media.media--hover-effect
-    > img:first-child:not(:only-child) {
+  .card-wrapper:hover .media.media--hover-effect > img:first-child:not(:only-child) {
     opacity: 0;
   }
-
   .card-wrapper:hover .media.media--hover-effect > img + img {
     opacity: 1;
     transition: transform var(--duration-long) ease;
     transform: scale(1.03);
   }
-
   .underline-links-hover:hover a {
     text-decoration: underline;
     text-underline-offset: 0.3rem;
   }
 }
-
 .card--standard.card--media .card__inner .card__information,
 .card--standard.card--text:not(.card--horizontal) > .card__content .card__heading,
 .card--standard:not(.card--horizontal) > .card__content .card__badge,
@@ -349,9 +340,7 @@
   margin-top: 0.4rem;
 }
 
-.card-information
-  > *:not(.visually-hidden:first-child)
-  + *:not(.rating) {
+.card-information > *:not(.visually-hidden:first-child) + *:not(.rating) {
   margin-top: 0.7rem;
 }
 

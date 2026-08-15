@@ -1,4 +1,3 @@
-// @ts-nocheck
 class PasswordModal extends DetailsModal {
   constructor() {
     super();

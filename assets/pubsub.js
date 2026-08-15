@@ -1,14 +1,13 @@
-"use strict";
 const subscribers = {};
 function subscribe(eventName, callback) {
-    if (subscribers[eventName] === undefined) {
-        subscribers[eventName] = [];
-    }
-    subscribers[eventName] = [...subscribers[eventName], callback];
-    return function unsubscribe() {
-        subscribers[eventName] = subscribers[eventName].filter((cb) => cb !== callback);
+    const eventSubscribers = (subscribers[eventName] ?? []);
+    subscribers[eventName] = [...eventSubscribers, callback];
+    return () => {
+        const current = (subscribers[eventName] ?? []);
+        subscribers[eventName] = current.filter((cb) => cb !== callback);
     };
 }
 function publish(eventName, data) {
-    subscribers[eventName]?.forEach((callback) => callback(data));
+    const eventSubscribers = (subscribers[eventName] ?? []);
+    eventSubscribers.forEach((callback) => callback(data));
 }

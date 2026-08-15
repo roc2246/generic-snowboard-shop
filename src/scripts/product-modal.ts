@@ -1,4 +1,3 @@
-// @ts-nocheck
 if (!customElements.get('product-modal')) {
   customElements.define('product-modal', class ProductModal extends ModalDialog {
     constructor() {

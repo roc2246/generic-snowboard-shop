@@ -7,7 +7,6 @@
     margin-top: 5rem;
   }
 }
-
 .pagination__list {
   display: flex;
   flex-wrap: wrap;
@@ -49,7 +48,7 @@ a.pagination__item:hover::after {
 
 .pagination__item--current::after,
 .pagination__item:hover::after {
-  content: '';
+  content: "";
   display: block;
   width: 2rem;
   position: absolute;

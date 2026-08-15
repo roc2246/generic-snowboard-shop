@@ -1,5 +1,8 @@
-// @ts-nocheck
 class ProductSubscriptions extends HTMLElement {
+  declare input: HTMLInputElement;
+  declare options: NodeListOf<HTMLInputElement>;
+  declare select: HTMLSelectElement;
+
   constructor() {
     super()
 
@@ -17,8 +20,12 @@ class ProductSubscriptions extends HTMLElement {
     this.select.addEventListener('change', this.onSelectChange.bind(this))
   }
 
-  onRadioChange(e) {
-    this.input.value = e.target.value;
+  onRadioChange(e: Event) {
+    this.input.value = (e.target as HTMLInputElement).value;
+  }
+
+  onSelectChange(e: Event) {
+    this.input.value = (e.target as HTMLSelectElement).value;
   }
   
   getCurrentSellingPlanId() {

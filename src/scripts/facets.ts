@@ -1,5 +1,9 @@
-// @ts-nocheck
 class FacetFiltersForm extends HTMLElement {
+  declare debouncedOnSubmit: EventListener;
+  static filterData: any;
+  static searchParamsInitial: any;
+  static searchParamsPrev: any;
+
   constructor() {
     super();
     this.onActiveFilterClick = this.onActiveFilterClick.bind(this);
@@ -165,7 +169,7 @@ class FacetFiltersForm extends HTMLElement {
 
   createSearchParams(form) {
     const formData = new FormData(form);
-    return new URLSearchParams(formData).toString();
+    return new URLSearchParams(formData as any).toString();
   }
 
   onSubmitForm(searchParams, event) {
@@ -201,7 +205,7 @@ class FacetFiltersForm extends HTMLElement {
     event.preventDefault();
     FacetFiltersForm.toggleActiveFacets();
     const url = event.currentTarget.href.indexOf('?') == -1 ? '' : event.currentTarget.href.slice(event.currentTarget.href.indexOf('?') + 1);
-    FacetFiltersForm.renderPage(url);
+    FacetFiltersForm.renderPage(url, undefined);
   }
 }
 
@@ -230,7 +234,7 @@ class PriceRange extends HTMLElement {
     const maxInput = inputs[1];
     if (maxInput.value) minInput.setAttribute('max', maxInput.value);
     if (minInput.value) maxInput.setAttribute('min', minInput.value);
-    if (minInput.value === '') maxInput.setAttribute('min', 0);
+    if (minInput.value === '') maxInput.setAttribute('min', '0');
     if (maxInput.value === '') minInput.setAttribute('max', maxInput.getAttribute('max'));
   }
 
