@@ -1,7 +1,15 @@
+type ShareElements = {
+  shareButton: HTMLButtonElement | null;
+  shareSummary: HTMLElement | null;
+  closeButton: HTMLElement | null;
+  successMessage: HTMLElement | null;
+  urlInput: HTMLInputElement | null;
+};
+
 if (!customElements.get('share-button')) {
   customElements.define('share-button', class ShareButton extends DetailsDisclosure {
-  declare elements: Record<string, any>;
-  declare urlToShare: any;
+  declare elements: ShareElements;
+  declare urlToShare: string;
 
     constructor() {
       super();
@@ -13,7 +21,8 @@ if (!customElements.get('share-button')) {
         successMessage: this.querySelector('[id^="ShareMessage"]'),
         urlInput: this.querySelector('input')
       }
-      this.urlToShare = this.elements.urlInput ? this.elements.urlInput.value : document.location.href;
+      this.urlToShare = this.elements.urlInput?.value ?? document.location.href;
+      if (!this.mainDetailsToggle || !this.elements.shareButton || !this.elements.shareSummary || !this.elements.closeButton || !this.elements.successMessage) return;
 
       if (navigator.share) {
         this.mainDetailsToggle.setAttribute('hidden', '');
@@ -27,6 +36,7 @@ if (!customElements.get('share-button')) {
     }
 
     toggleDetails() {
+      if (!this.elements.successMessage || !this.elements.closeButton || !this.elements.shareSummary) return;
       if (!this.mainDetailsToggle.open) {
         this.elements.successMessage.classList.add('hidden');
         this.elements.successMessage.textContent = '';
@@ -36,6 +46,7 @@ if (!customElements.get('share-button')) {
     }
 
     copyToClipboard() {
+      if (!this.elements.urlInput || !this.elements.successMessage || !this.elements.closeButton) return;
       navigator.clipboard.writeText(this.elements.urlInput.value).then(() => {
         this.elements.successMessage.classList.remove('hidden');
         this.elements.successMessage.textContent = window.accessibilityStrings.shareSuccess;
@@ -46,7 +57,7 @@ if (!customElements.get('share-button')) {
 
     updateUrl(url) {
       this.urlToShare = url;
-      this.elements.urlInput.value = url;
+      if (this.elements.urlInput) this.elements.urlInput.value = url;
     }
   });
 }

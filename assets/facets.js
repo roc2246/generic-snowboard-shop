@@ -149,7 +149,8 @@ class FacetFiltersForm extends HTMLElement {
     }
     createSearchParams(form) {
         const formData = new FormData(form);
-        return new URLSearchParams(formData).toString();
+        const searchParams = Array.from(formData.entries(), ([key, value]) => [key, String(value)]);
+        return new URLSearchParams(searchParams).toString();
     }
     onSubmitForm(searchParams, event) {
         FacetFiltersForm.renderPage(searchParams, event);

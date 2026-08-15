@@ -1,8 +1,8 @@
 class FacetFiltersForm extends HTMLElement {
   declare debouncedOnSubmit: EventListener;
-  static filterData: any;
-  static searchParamsInitial: any;
-  static searchParamsPrev: any;
+  static filterData: Array<{ html: string; url: string }>;
+  static searchParamsInitial: string;
+  static searchParamsPrev: string;
 
   constructor() {
     super();
@@ -177,7 +177,8 @@ class FacetFiltersForm extends HTMLElement {
 
   createSearchParams(form) {
     const formData = new FormData(form);
-    return new URLSearchParams(formData as any).toString();
+    const searchParams = Array.from(formData.entries(), ([key, value]) => [key, String(value)] as [string, string]);
+    return new URLSearchParams(searchParams).toString();
   }
 
   onSubmitForm(searchParams, event) {
