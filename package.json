@@ -8,12 +8,7 @@
     "typecheck": "tsc -p tsconfig.json",
     "watch": "concurrently -k \"npm:watch:styles\" \"npm:watch:scripts\"",
     "watch:styles": "node scripts/build-styles.mjs --watch",
-    "watch:scripts": "tsc -p tsconfig.build.json --watch --preserveWatchOutput",
-    "build:styles:prod": "node scripts/build-styles.mjs --compressed",
-    "check:styles": "node scripts/build-styles.mjs --check && node scripts/validate-styles.mjs",
-    "check": "npm run check:styles && npm run check:types",
-    "typecheck:strict": "tsc -p tsconfig.strict.json",
-    "check:types": "node scripts/validate-types.mjs && npm run typecheck && npm run typecheck:strict"
+    "watch:scripts": "tsc -p tsconfig.build.json --watch --preserveWatchOutput"
   },
   "devDependencies": {
     "concurrently": "^9.1.2",
