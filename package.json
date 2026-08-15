@@ -5,6 +5,7 @@
     "build": "npm run build:styles && npm run build:scripts",
     "build:styles": "node scripts/build-styles.mjs",
     "build:scripts": "tsc -p tsconfig.build.json",
+    "check:styles": "node scripts/build-styles.mjs --check && node scripts/validate-styles.mjs",
     "typecheck": "tsc -p tsconfig.json",
     "typecheck:strict": "tsc -p tsconfig.strict.json",
     "check:types": "node scripts/validate-types.mjs && npm run typecheck && npm run typecheck:strict",
