@@ -2369,7 +2369,7 @@ product-info .loading-overlay:not(.hidden) ~ *,
 }
 
 .header__icon {
-  color: rgb(var(--color-foreground));
+  color: black;
 }
 
 .header__icon span {
