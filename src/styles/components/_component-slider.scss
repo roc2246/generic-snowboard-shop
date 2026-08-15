@@ -16,7 +16,7 @@ slider-component.slider-component-full-width {
   }
 }
 
-@media screen and (min-width: 749px) and (max-width: 990px) {
+@include a.media-between(tablet, desktop) {
   slider-component.page-width {
     padding: 0 5rem;
   }
