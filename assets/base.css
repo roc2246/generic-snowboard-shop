@@ -16,7 +16,7 @@
 .color-inverse {
   --color-foreground: var(--color-base-background-1);
   --color-background: var(--color-base-text);
-  --gradient-background: a.theme-color(base-text);
+  --gradient-background: rgb(var(--color-base-text));
 }
 
 .color-accent-1 {
@@ -140,19 +140,19 @@
 
 :root,
 .color-icon-text {
-  --color-icon: a.theme-color(base-text);
+  --color-icon: rgb(var(--color-base-text));
 }
 
 .color-icon-accent-1 {
-  --color-icon: a.theme-color(base-accent-1);
+  --color-icon: rgb(var(--color-base-accent-1));
 }
 
 .color-icon-accent-2 {
-  --color-icon: a.theme-color(base-accent-2);
+  --color-icon: rgb(var(--color-base-accent-2));
 }
 
 .color-icon-outline-button {
-  --color-icon: a.theme-color(base-outline-button-labels);
+  --color-icon: rgb(var(--color-base-outline-button-labels));
 }
 
 .product-card-wrapper .card,
